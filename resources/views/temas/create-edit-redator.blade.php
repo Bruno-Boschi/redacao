@@ -76,13 +76,13 @@
                                         <label class="form-control-label" for="input-username">Referência - Link</label>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                {{-- <div class="col-lg-3">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-username">Matéria</label>
                                     </div>
-                                </div>
-                                <div class="col-lg-2">
-                                </div>
+                                </div> --}}
+                                {{-- <div class="col-lg-2">
+                                </div> --}}
                             </div>
                             <div class="row">
                                 <div class="col-lg-3">
@@ -98,9 +98,10 @@
                                             value="">
                                     </div>
                                 </div>
-                                <div class="col-md-3 dados_redator">
+                                {{-- <div class="col-md-3 dados_redator">
                                     <select class="form-control postDominio" id="materia" name="materia"></select>
                                 </div>
+                                --}}
                                 <div class="col-lg-2">
                                     <a href="#salvar_url" class="btn btn-primary" id="salvar_url">Adicionar</a>
                                 </div>
