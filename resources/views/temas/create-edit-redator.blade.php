@@ -100,7 +100,7 @@
                                 </div>
                                 {{-- <div class="col-md-3 dados_redator">
                                     <select class="form-control postDominio" id="materia" name="materia"></select>
-                                </div> mudei
+                                </div>
                                 --}}
                                 <div class="col-lg-2">
                                     <a href="#salvar_url" class="btn btn-primary" id="salvar_url">Adicionar</a>
