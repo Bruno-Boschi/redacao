@@ -1,0 +1,94 @@
+body {
+    font-family:verdana;
+    font-size:15px;
+    }
+    
+    a {color:#333; text-decoration:none}
+    a:hover {color:#ccc; text-decoration:none}
+    
+    #mask {
+      position:absolute;
+      left:0;
+      top:0;
+      z-index:9000;
+      background-color:#000;
+      display:none;
+    }
+    
+    #mask_2 {
+      position:absolute;
+      left:0;
+      top:0;
+      z-index:9000;
+      background-color:#000;
+      display:none;
+    }
+      
+    #boxes .window {
+      position:absolute;
+      left:0;
+      top:0;
+      width:440px;
+      height:200px;
+      display:none;
+      z-index:9999;
+      padding:20px;
+    }
+    
+    #boxes #dialog1 {
+      width:75%; 
+      height:505px;
+      padding:10px;
+      background-color:#ffffff;
+    }
+    
+    #dialog1 .d-header {
+      background:url(login-header.png) no-repeat 0 0 transparent; 
+      width:100%; 
+    }
+    
+    #dialog1 .d-blank {
+      background:url(login-blank.png) no-repeat 0 0 transparent; 
+      width:100%; 
+      height:53px;
+    }
+    
+    #dialog1 .d-login {
+      float:left;
+      width:108px; 
+      height:53px;
+    }
+    .close{display:block; text-align:right;}
+    
+    #boxes #dialog2 {
+      width:75%; 
+      height:505px;
+      padding:10px;
+      background-color:#ffffff;
+    }
+    
+    #dialog2 .d-header {
+      background:url(login-header.png) no-repeat 0 0 transparent; 
+      width:100%; 
+    }
+    
+    #dialog2 .d-blank {
+      background:url(login-blank.png) no-repeat 0 0 transparent; 
+      width:100%; 
+      height:53px;
+    }
+    
+    #dialog2 .d-login {
+      float:left;
+      width:108px; 
+      height:53px;
+    }
+    
+    #boxes #dialog2 {
+      width:75%; 
+      height:505px;
+      padding:10px;
+      background-color:#ffffff;
+    }
+    .close{display:block; text-align:right;}
+    

@@ -1,0 +1,1 @@
+[28-Mar-2021 08:16:13 America/Fortaleza] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.2.5". You are running 5.5.38. in /home3/lotuss58/public_html/vendor/composer/platform_check.php on line 25

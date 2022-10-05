@@ -1,0 +1,33 @@
+
+/****
+Materias/redator-Aleatorio
+(Cadastrar)
+colocar temas como um select 
+
+
+crud referencia
+tag referencia
+tema
+link
+
+
+depois colocar um select referencia 
+***/
+
+
+
+ao cadastrar redator poder selecionar o tipo de redator ele sera para tabelar o preco
+
+banco tipos de redatores
+-clts
+-freela
+
+tebela de precos para os tipos de redatores vinculados
+
+
+
+-------------------     arrumar botoes bootstrap    ---------------------
+
+>-- colocar botao de cadastrar materias na dashboard do redator para melhor facilidade --<  OK
+
+inserir campo idioma da redacao
