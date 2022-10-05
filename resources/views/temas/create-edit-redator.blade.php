@@ -81,8 +81,8 @@
                                         <label class="form-control-label" for="input-username">Matéria</label>
                                     </div>
                                 </div> --}}
-                                <div class="col-lg-2">
-                                </div>
+                                {{-- <div class="col-lg-2">
+                                </div> --}}
                             </div>
                             <div class="row">
                                 <div class="col-lg-3">
