@@ -5,7 +5,8 @@
         <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
                 @if (isset($solicitacao))
-                    <h4 class="page-title">Matéria - {{ $solicitacao->assunto }} </h4>
+                    <h4 class="page-title">Matéria - {{ $solicitacao->assunto }} - {{ $solicitacao->qtd_palavras }} Palavras
+                    </h4>
                 @else
                     <h4 class="page-title">Matéria </h4>
                 @endif
@@ -26,10 +27,14 @@
             <div class="card-body">
                 <form id="dados_cadastro" action="/materias/salvar" method="post" enctype="multipart/form-data">
                     {!! csrf_field() !!}
+                    @if (isset($solicitacao))
+                        <input type="hidden" name="preco_materia" value="{{ $solicitacao->preco_materia }}">
+                    @endif
                     @if (isset($materia->id))
                         <input type="hidden" name="id" value="{{ $materia->id }}">
                     @endif
-                    <?php $temaSelecionado = isset($materia->tema_id) ? $materia->tema_id : ''; ?>
+                    <?php $temaSelecionado = isset($solicitacao->tema_id) ? $solicitacao->tema_id : (isset($materia->tema_id) ? $materia->tema_id : ''); ?>
+                    <?php $idiomaSelecionado = isset($solicitacao->idioma) ? $solicitacao->idioma : ''; ?>
                     <div class="tab-content ">
                         <!-- style="display: none" -->
                         <div class="tab-pane active" id="dados" data-role="tabpanel">
@@ -44,7 +49,7 @@
                                 <div class="col-md-6">
                                     <label>Idioma:</label>
                                     <input required class="form-control" id="idioma" name="idioma"
-                                        value="{{ isset($materia->idioma) ? $materia->idioma : '' }}">
+                                        value="{{ isset($idiomaSelecionado) ? $idiomaSelecionado : (isset($materia->idioma) ? $materia->idioma : '') }}">
 
                                 </div>
                             </div>

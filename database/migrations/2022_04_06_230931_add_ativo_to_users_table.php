@@ -22,7 +22,6 @@ class AddAtivoToUsersTable extends Migration
             $table->string('chave_pix')->nullable();
             $table->integer('departamento_id')->nullable();
             $table->string('tipo_redator')->nullable();
-            $table->decimal('preco_materia', 15, 2)->nullable();
             $table->softDeletes();
         });
 
@@ -82,7 +81,6 @@ class AddAtivoToUsersTable extends Migration
             $table->dropColumn('chave_pix');
             $table->dropColumn('departamento_id');
             $table->dropColumn('tipo_redator');
-            $table->dropColumn('preco_materia');
             $table->dropColumn('deleted_at');
         });
     }

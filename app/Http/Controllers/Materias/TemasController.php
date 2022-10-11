@@ -294,16 +294,21 @@ class TemasController extends Controller
         $request = $this->request->all();
         $redatorSelecionado = (!isset($request['redator'])) ? $this->proximoUsuarioCadastrarTema(0) :
             $request['redator'];
+        $numero = str_replace('.', '', $request['preco_materia']);
+        $numero = str_replace(',', '.', $numero);
 
         $assunto = new RedatorAleatorio;
         $assunto->assunto = $request['assunto'];
         $assunto->idioma = $request['idioma'];
+        $assunto->qtd_palavras = $request['qtd_palavras'];
+        $assunto->preco_materia = $numero;
         $assunto->descricao = $request['descricao_assunto'];
         $assunto->usuario_id = $redatorSelecionado;
         $assunto->status = 0;
         $assunto->usuario_cadastro_id = Auth::user()->id;
         $assunto->tema_id = $request['tema'];
         $assunto->save();
+
 
         if (isset($request['titulo'])) {
             for ($i = 0; $i < count($request['titulo']); $i++) {

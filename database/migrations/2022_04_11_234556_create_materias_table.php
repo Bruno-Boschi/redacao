@@ -28,6 +28,7 @@ class CreateMateriasTable extends Migration
             $table->string('link_wordpress')->nullable();
             $table->string('slug_wordpress')->nullable();
             $table->string('id_dominio')->nullable();
+            $table->boolean('exported')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

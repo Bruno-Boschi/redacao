@@ -6,11 +6,7 @@
             <div class="col-12 d-flex no-block align-items-center">
                 <h4 class="page-title">Tema</h4>
                 <div class="ms-auto text-end">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/temas">Categorias</a></li>
-                        </ol>
-                    </nav>
+
                 </div>
             </div>
         </div>
@@ -37,9 +33,14 @@
                                         <div>
                                             <input type="hidden" id="id_assunto" value="{{ $assunto[0]['id'] }}">
                                             <input type="hidden" id="id_tema" value="{{ $assunto[0]['tema_id'] }}">
-                                            <h5 class="card-title">Assunto: {{ $assunto[0]['assunto'] }}</h5>
-                                            <h5 class="card-title">Categoria: {{ $assunto[0]['tema'] }}</h5>
-                                            <h5 class="card-title">Idioma: {{ $assunto[0]['idioma'] }}</h5>
+                                            <h5 class="card-title">Assunto: &nbsp;&nbsp;{{ $assunto[0]['assunto'] }}</h5>
+                                            <h5 class="card-title">Categoria: &nbsp;&nbsp;{{ $assunto[0]['tema'] }}</h5>
+                                            <h5 class="card-title">Idioma: &nbsp;&nbsp;{{ $assunto[0]['idioma'] }}</h5>
+                                            <h5 class="card-title">Palavras: &nbsp;&nbsp;{{ $assunto[0]['qtd_palavras'] }}
+                                                <h5 class="card-title">Preço:
+                                                    &nbsp;&nbsp;R$&nbsp;{{ $assunto[0]['preco_materia'] }}
+                                                </h5>
+                                            </h5>
                                             <p>
                                                 Descrição:<br>
                                                 <?php echo $assunto[0]['descricao']; ?>

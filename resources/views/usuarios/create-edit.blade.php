@@ -68,23 +68,6 @@ use App\Helpers\FormataData;
                                 </select>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-6" id="email">
-                                <div class="form-group">
-                                    <label>E-mail</label>
-                                    <input required type="text" class="form-control" placeholder="Usuário" name="email"
-                                        value="{{ isset($usuario->email) ? $usuario->email : '' }}">
-                                </div>
-                            </div>
-                            <div class="col-6" id="Valor">
-                                <div class="form-group">
-                                    <label>Valor Por Materia</label>
-                                    <input required type="text" class="form-control maskMoney-inputmask"
-                                        placeholder="Valor" name="preco_materia"
-                                        value="{{ number_format($usuario->preco_materia, 2, ',', '.') }}">
-                                </div>
-                            </div>
-                        </div>
                     @else
                         <div class="row">
                             <div class="col-12">
@@ -94,15 +77,15 @@ use App\Helpers\FormataData;
                                         value="{{ isset($usuario->name) ? $usuario->name : '' }}">
                                 </div>
                             </div>
-                            <div class="col-12" id="email">
-                                <div class="form-group">
-                                    <label>E-mail</label>
-                                    <input required type="text" class="form-control" placeholder="Usuário" name="email"
-                                        value="{{ isset($usuario->email) ? $usuario->email : '' }}">
-                                </div>
-                            </div>
                         </div>
                     @endif
+                    <div class="col-12" id="email">
+                        <div class="form-group">
+                            <label>E-mail</label>
+                            <input required type="text" class="form-control" placeholder="Usuário" name="email"
+                                value="{{ isset($usuario->email) ? $usuario->email : '' }}">
+                        </div>
+                    </div>
 
                     {{-- @if ($tipoUsuario == 'R')
                         <div class="row">
@@ -154,8 +137,8 @@ use App\Helpers\FormataData;
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Chave PIX</label>
-                                <input required type="text" class="form-control" placeholder="Chave PIX"
-                                    name="chave_pix" value="{{ isset($usuario->chave_pix) ? $usuario->chave_pix : '' }}">
+                                <input required type="text" class="form-control" placeholder="Chave PIX" name="chave_pix"
+                                    value="{{ isset($usuario->chave_pix) ? $usuario->chave_pix : '' }}">
                             </div>
                         </div>
                     </div>

@@ -198,7 +198,7 @@ class MateriasController extends Controller
 
                 ReferenciasMaterias::where('materia_id', $request['id'])->delete();
             } else {
-                // $configuracao = Configuracoes::find(1);
+
                 $materia = new Materias;
                 $materia->assunto = $request['assunto'];
                 $materia->descricao = $request['descricao'];
@@ -209,7 +209,7 @@ class MateriasController extends Controller
                 if (Auth::user()->tipo_redator == "CLT") {
                     $materia->valor_post = 0;
                 } else {
-                    $materia->valor_post = Auth::user()->preco_materia;
+                    $materia->valor_post = $request['preco_materia'];
                 }
                 $materia->status = 0;
                 $materia->imagem_principal = $request['imagem'];

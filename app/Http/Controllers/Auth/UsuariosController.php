@@ -223,12 +223,6 @@ class UsuariosController extends Controller
                     $usuario->tipo_redator = $request['tipo_redator'];
                 }
 
-                if (isset($request['preco_materia'])) {
-                    $numero = str_replace('.', '', $request['preco_materia']);
-                    $numero = str_replace(',', '.', $numero);
-                    $usuario->preco_materia = $numero;
-                }
-
                 if (isset($request['departamento'])) {
                     $usuario->departamento_id = $request['departamento'];
                 }

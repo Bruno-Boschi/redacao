@@ -34,17 +34,33 @@
                                     <input required name="assunto" type="text" class="form-control" id="assunto"
                                         value="">
                                 </div>
-                                <div class="col-md-6 ">
+                                <div class="col-md-3 ">
                                     <label class="text-muted">Idioma:</label><br>
                                     <input required class="form-control" id="idioma" name="idioma" value="">
                                 </div>
+                                <div class="col-md-3 ">
+                                    <label class="text-muted">Quantidade de palavras:</label><br>
+                                    <select required class="form-control" id="qtd_palavras" name="qtd_palavras">
+                                        <option value="">
+                                        </option>
+                                        <option value="1000">1000 palavras</option>
+                                        <option value="900">900 palavras</option>
+                                        <option value="800">800 palavras</option>
+                                        <option value="700">700 palavras</option>
+                                        <option value="600">600 palavras</option>
+                                        <option value="500">500 palavras</option>
+                                        <option value="400">400 palavras</option>
+                                        <option value="300">300 palavras</option>
+                                        <option value="200">200 palavras</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <label class="text-muted">Redator:</label><br>
                                     <select class="form-control postName" id="redator" name="redator"></select>
                                 </div>
-                                <div class="col-md-6 ">
+                                <div class="col-md-3 ">
                                     <label class="text-muted">Categoria:</label><br>
                                     <select required class="form-control postTema" id="tema" name="tema">
                                         {{-- <option value=""></option>
@@ -52,6 +68,11 @@
                                             <option value="{{ $tema['id'] }}">{{ $tema['descricao'] }}</option>
                                         @endforeach --}}
                                     </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="text-muted">Preço</label>
+                                    <input required type="text" class="form-control maskMoney-inputmask"
+                                        placeholder="Valor" name="preco_materia" value="">
                                 </div>
                             </div>
                             <div class="row">
@@ -143,6 +164,16 @@
     <script src="{{ URL('/assets/painel/') }}/extra-libs/DataTables/datatables.min.js"></script>
     <script src="{{ URL('/assets/painel/js/libs/select2/dist/js/') }}/select2.min.js"></script>
     <script src="{{ URL('/assets/painel/js/temas/') }}/form-redator-aleatorio.js"></script>
+    <script src="{{ URL('/assets/painel/extra-libs/mask-money/') }}/jquery.maskMoney.js"></script>
+    <script type="text/javascript">
+        $(".maskMoney-inputmask").maskMoney({
+            allowNegative: false,
+            thousands: '.',
+            decimal: ',',
+            affixesStay: false,
+            prefix: "R$ ",
+        });
+    </script>
     @foreach ($temaReferencias as $temaReferencia)
         <script>
             adicionarLinha("{{ $temaReferencia->descricao }}", "{{ $temaReferencia->titulo }}", {{ $temaReferencia->id }});

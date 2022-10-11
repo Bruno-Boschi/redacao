@@ -23,6 +23,8 @@ class CreateRedatorAleatorioTable extends Migration
             $table->date('data_leitura')->nullable();
             $table->integer('usuario_cadastro_id')->nullable();
             $table->integer('tema_id')->nullable();
+            $table->integer('qtd_palavras')->nullable();
+            $table->decimal('preco_materia', 15, 2)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
