@@ -374,23 +374,29 @@ class TemasController extends Controller
         if ((($totalMateriasRejeitada + 1) > $configuracoes->total_rejeitos_materia) && ((int)$configuracoes->total_rejeitos_materia > 0)) {
             echo json_encode(array('status' => 2, 'totalRejeitada' => $totalMateriasRejeitada));
         } else {
-            if ((int)$request['status'] == 2) {
-                $proximoRedator = $this->proximoUsuarioCadastrarTema($assunto->usuario_id);
+            // if ((int)$request['status'] == 2) {
+            //     $proximoRedator = $this->proximoUsuarioCadastrarTema($assunto->usuario_id);
 
-                $novoRedator = new RedatorAleatorio;
-                $novoRedator->assunto = $assunto->assunto;
-                $novoRedator->descricao = $assunto->descricao;
-                $novoRedator->usuario_id = $proximoRedator;
-                $novoRedator->idioma = $assunto->idioma;
-                $novoRedator->status = 0;
-                $novoRedator->usuario_cadastro_id = $assunto->usuario_cadastro_id;
-                $novoRedator->tema_id = $assunto->tema_id;
-                $novoRedator->save();
-            }
+            //     $novoRedator = new RedatorAleatorio;
+            //     $novoRedator->assunto = $assunto->assunto;
+            //     $novoRedator->descricao = $assunto->descricao;
+            //     $novoRedator->usuario_id = $proximoRedator;
+            //     $novoRedator->idioma = $assunto->idioma;
+            //     $novoRedator->status = 0;
+            //     $novoRedator->usuario_cadastro_id = $assunto->usuario_cadastro_id;
+            //     $novoRedator->tema_id = $assunto->tema_id;
+            //     $novoRedator->save();
+            // }
+
 
             $assunto->status = $request['status'];
             $assunto->data_leitura = $date->format('Y-m-d');
+            if ($assunto->status = 3) {
+                $assunto->usuario_id = Auth::user()->id;
+            }
             $assunto->save();
+
+
 
             echo json_encode(array(
                 'status' => 1,

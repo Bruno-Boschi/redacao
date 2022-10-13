@@ -106,7 +106,7 @@
                                             class="btn btn-danger text-white">Rejeitar</button>
                                     </div>
                                 @endif
-                            @else
+                            @elseif ($assunto[0]['usuario_id'] != 0)
                                 <div class="col-1">
                                     <button type="button" id="rejeitar_assunto"
                                         class="btn btn-danger text-white">Rejeitar</button>
