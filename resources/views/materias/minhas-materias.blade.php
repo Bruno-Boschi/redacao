@@ -25,11 +25,14 @@
                                 {{ Session::get('mensagem') }}
                             </div>
                         @endif
-                        <div class="col-md-10">
-                            <div class="btn-group mt-2" role="group">
-                                <a href="/materias/create-edit" class="btn btn-success text-white">Cadastrar</a>
+
+                        @if (Auth::user()->tipo_redator == 'CLT')
+                            <div class="col-md-10">
+                                <div class="btn-group mt-2" role="group">
+                                    <a href="/materias/create-edit" class="btn btn-success text-white">Cadastrar</a>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                         <div class="col-md-2">
                         </div>
                     </div>

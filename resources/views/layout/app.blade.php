@@ -210,127 +210,138 @@
                                 <span class="hide-menu">Dashboard</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
-                                aria-expanded="false">
-                                <i class="mdi mdi-receipt"></i>
-                                <span class="hide-menu">Matérias</span>
-                            </a>
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                @if (Auth::user()->tipo_usuario == 'A')
-                                    <li class="sidebar-item">
-                                        <a href="/materias" class="sidebar-link">
-                                            <i class="mdi mdi-pencil"></i>
-                                            <span class="hide-menu"> Matérias</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a href="/materias/materias-revisar" class="sidebar-link">
-                                            <i class="mdi mdi-pencil"></i>
-                                            <span class="hide-menu"> Revisar Matérias</span>
-                                        </a>
-                                    </li>
-                                @endif
-                                @if (Auth::user()->tipo_usuario == 'R')
-                                    <li class="sidebar-item">
-                                        <a href="/materias/minhas-materias" class="sidebar-link">
-                                            <i class="mdi mdi-pencil"></i>
-                                            <span class="hide-menu"> Minhas Matérias</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a href="/referencias-materias" class="sidebar-link">
-                                            <i class="mdi mdi-forum"></i>
-                                            <span class="hide-menu"> Referência Matérias</span>
-                                        </a>
-                                    </li>
-                                    {{-- <li class="sidebar-item">
+                        @if ((Auth::user()->tipo_usuario == 'A' && Auth::user()->departamento_id == 1) ||
+                            (Auth::user()->departamento_id == 0 && Auth::user()->tipo_usuario == 'A') ||
+                            Auth::user()->tipo_usuario == 'R')
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                                    aria-expanded="false">
+                                    <i class="mdi mdi-receipt"></i>
+                                    <span class="hide-menu">Matérias</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse  first-level">
+                                    @if (Auth::user()->tipo_usuario == 'A')
+                                        <li class="sidebar-item">
+                                            <a href="/materias" class="sidebar-link">
+                                                <i class="mdi mdi-pencil"></i>
+                                                <span class="hide-menu"> Matérias</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a href="/materias/materias-revisar" class="sidebar-link">
+                                                <i class="mdi mdi-pencil"></i>
+                                                <span class="hide-menu"> Revisar Matérias</span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    @if (Auth::user()->tipo_usuario == 'R')
+                                        <li class="sidebar-item">
+                                            <a href="/materias/minhas-materias" class="sidebar-link">
+                                                <i class="mdi mdi-pencil"></i>
+                                                <span class="hide-menu"> Minhas Matérias</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a href="/referencias-materias" class="sidebar-link">
+                                                <i class="mdi mdi-forum"></i>
+                                                <span class="hide-menu"> Referência Matérias</span>
+                                            </a>
+                                        </li>
+                                        {{-- <li class="sidebar-item">
                                         <a href="/referencias-materias" class="sidebar-link">
                                             <i class="mdi mdi-forum"></i>
                                             <span class="hide-menu"> Minhas Solicitacoes</span>
                                         </a>
                                     </li> --}}
-                                @endif
-                                @if (Auth::user()->tipo_usuario == 'A')
-                                    <li class="sidebar-item">
-                                        <a href="/referencias-materias" class="sidebar-link">
-                                            <i class="mdi mdi-forum"></i>
-                                            <span class="hide-menu"> Referência Matérias</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a href="/temas" class="sidebar-link">
-                                            <i class="mdi mdi-pencil"></i>
-                                            <span class="hide-menu">Categorias </span>
-                                        </a>
-                                    </li>
+                                    @endif
+                                    @if (Auth::user()->tipo_usuario == 'A')
+                                        <li class="sidebar-item">
+                                            <a href="/referencias-materias" class="sidebar-link">
+                                                <i class="mdi mdi-forum"></i>
+                                                <span class="hide-menu"> Referência Matérias</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a href="/temas" class="sidebar-link">
+                                                <i class="mdi mdi-pencil"></i>
+                                                <span class="hide-menu">Categorias </span>
+                                            </a>
+                                        </li>
 
-                                    <li class="sidebar-item">
-                                        <a href="/temas/redator-aleatorio" class="sidebar-link">
-                                            <i class="mdi mdi-account"></i>
-                                            <span class="hide-menu"> Redator Aleatório</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a href="/dominios" class="sidebar-link">
-                                            <i class="mdi mdi-domain"></i>
-                                            <span class="hide-menu">Domínios </span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a href="/materias/relatorios" class="sidebar-link">
-                                            <i class="mdi mdi-format-list-bulleted"></i>
-                                            <span class="hide-menu">Relatório de Matérias </span>
-                                        </a>
-                                    </li>
-                                @endif
-                            </ul>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
-                                aria-expanded="false">
-                                <i class="mdi mdi-cash-usd"></i>
-                                <span class="hide-menu">Financeiro</span>
-                            </a>
-                            <ul aria-expanded="false" class="collapse first-level">
-                                @if (Auth::user()->tipo_usuario == 'R')
-                                    <li class="sidebar-item">
-                                        <a href="/financeiros" class="sidebar-link">
-                                            <i class="mdi mdi-cash-multiple"></i>
-                                            <span class="hide-menu">Solicitar Pagamento </span>
-                                        </a>
-                                    </li>
-                                @endif
-                                @if (Auth::user()->tipo_usuario == 'A')
-                                    <li class="sidebar-item">
-                                        <a href="/financeiros/lista-solicitacoes-pagamento" class="sidebar-link">
-                                            <i class="mdi mdi-square-inc-cash"></i>
-                                            <span class="hide-menu"> Pagamentos Pendentes</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a href="/financeiros/pagamentos" class="sidebar-link">
-                                            <i class="mdi mdi-cash-multiple"></i>
-                                            <span class="hide-menu"> Pagamentos</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a href="/financeiros/faturamento-dominio" class="sidebar-link">
-                                            <i class="mdi mdi-cash-multiple"></i>
-                                            <span class="hide-menu"> Faturamento Domínio</span>
-                                        </a>
-                                    </li>
-                                @endif
-                                @if (Auth::user()->tipo_usuario == 'R')
-                                    <li class="sidebar-item">
-                                        <a href="/financeiros/solicitacoes-pagamento" class="sidebar-link">
-                                            <i class="mdi mdi-square-inc-cash"></i>
-                                            <span class="hide-menu"> Meus Pagamentos</span>
-                                        </a>
-                                    </li>
-                                @endif
-                            </ul>
-                        </li>
+                                        <li class="sidebar-item">
+                                            <a href="/temas/redator-aleatorio" class="sidebar-link">
+                                                <i class="mdi mdi-account"></i>
+                                                <span class="hide-menu"> Redator Aleatório</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a href="/dominios" class="sidebar-link">
+                                                <i class="mdi mdi-domain"></i>
+                                                <span class="hide-menu">Domínios </span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a href="/materias/relatorios" class="sidebar-link">
+                                                <i class="mdi mdi-format-list-bulleted"></i>
+                                                <span class="hide-menu">Relatório de Matérias </span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </li>
+                        @endif
+
+
+                        @if (Auth::user()->departamento_id == 0 || Auth::user()->departamento_id == 2)
+
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                                    aria-expanded="false">
+                                    <i class="mdi mdi-cash-usd"></i>
+                                    <span class="hide-menu">Financeiro</span>
+                                </a>
+
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    @if (Auth::user()->tipo_usuario == 'R')
+                                        <li class="sidebar-item">
+                                            <a href="/financeiros" class="sidebar-link">
+                                                <i class="mdi mdi-cash-multiple"></i>
+                                                <span class="hide-menu">Solicitar Pagamento </span>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                    @if (Auth::user()->tipo_usuario == 'A')
+                                        <li class="sidebar-item">
+                                            <a href="/financeiros/lista-solicitacoes-pagamento" class="sidebar-link">
+                                                <i class="mdi mdi-square-inc-cash"></i>
+                                                <span class="hide-menu"> Pagamentos Pendentes</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a href="/financeiros/pagamentos" class="sidebar-link">
+                                                <i class="mdi mdi-cash-multiple"></i>
+                                                <span class="hide-menu"> Pagamentos</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a href="/financeiros/faturamento-dominio" class="sidebar-link">
+                                                <i class="mdi mdi-cash-multiple"></i>
+                                                <span class="hide-menu"> Faturamento Domínio</span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    @if (Auth::user()->tipo_usuario == 'R')
+                                        <li class="sidebar-item">
+                                            <a href="/financeiros/solicitacoes-pagamento" class="sidebar-link">
+                                                <i class="mdi mdi-square-inc-cash"></i>
+                                                <span class="hide-menu"> Meus Pagamentos</span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </li>
+                        @endif
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
                                 aria-expanded="false">
@@ -355,18 +366,24 @@
                                 </a>
                                 <ul aria-expanded="false" class="collapse  first-level">
                                     <li class="sidebar-item">
-                                        <a href="/usuarios/redatores" class="sidebar-link">
-                                            <i class="mdi mdi-account-key"></i>
-                                            <span class="hide-menu">Redatores </span>
-                                        </a>
-                                        <a href="/usuarios/publishers" class="sidebar-link">
-                                            <i class="mdi mdi-account-key"></i>
-                                            <span class="hide-menu">Publishers</span>
-                                        </a>
-                                        <a href="/usuarios/administradores" class="sidebar-link">
-                                            <i class="mdi mdi-account-key"></i>
-                                            <span class="hide-menu">Administradores</span>
-                                        </a>
+                                        @if (Auth::user()->departamento_id != 2)
+                                            <a href="/usuarios/redatores" class="sidebar-link">
+                                                <i class="mdi mdi-account-key"></i>
+                                                <span class="hide-menu">Redatores </span>
+                                            </a>
+                                            <a href="/usuarios/publishers" class="sidebar-link">
+                                                <i class="mdi mdi-account-key"></i>
+                                                <span class="hide-menu">Publishers</span>
+                                            </a>
+                                        @endif
+
+                                        @if (Auth::user()->departamento_id != 1)
+                                            <a href="/usuarios/administradores" class="sidebar-link">
+                                                <i class="mdi mdi-account-key"></i>
+                                                <span class="hide-menu">Administradores</span>
+                                            </a>
+                                        @endif
+
                                     </li>
                                 </ul>
                             </li>
