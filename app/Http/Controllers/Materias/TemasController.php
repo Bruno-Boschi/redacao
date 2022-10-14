@@ -316,7 +316,8 @@ class TemasController extends Controller
                 $referencia->descricao = $request['descricao_referencia'][$i];
                 $referencia->titulo = $request['titulo'][$i];
                 $referencia->tema_id = $assunto->id;
-                $referencia->materia_id = ($request['materia'][$i] == 'null') ? 0 : $request['materia'][$i];
+                // $referencia->materia_id = ($request['materia'][$i] == 'null') ? 0 : $request['materia'][$i];
+                $referencia->materia_id = 0;
                 $referencia->save();
             }
         }

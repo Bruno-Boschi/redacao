@@ -122,11 +122,6 @@ function adicionarLinha(descricao, titulo, idMateria, idUrl = 0) {
     '" value="' +
     titulo +
     '">' +
-    '<input type="hidden" id="materia" name="materia[]" class="id_materia_' +
-    numeroLinhas +
-    '" value="' +
-    idMateria +
-    '">' +
     '<input type="hidden" id="id_table_url_' +
     numeroLinhas +
     '" name="id_table_url_' +
