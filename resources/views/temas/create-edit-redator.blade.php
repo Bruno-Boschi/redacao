@@ -43,15 +43,35 @@
                                     <select required class="form-control" id="qtd_palavras" name="qtd_palavras">
                                         <option value="">
                                         </option>
-                                        <option value="1000">1000 palavras</option>
-                                        <option value="900">900 palavras</option>
-                                        <option value="800">800 palavras</option>
-                                        <option value="700">700 palavras</option>
-                                        <option value="600">600 palavras</option>
-                                        <option value="500">500 palavras</option>
-                                        <option value="400">400 palavras</option>
-                                        <option value="300">300 palavras</option>
                                         <option value="200">200 palavras</option>
+                                        <option value="300">300 palavras</option>
+                                        <option value="400">400 palavras</option>
+                                        <option value="500">500 palavras</option>
+                                        <option value="600">600 palavras</option>
+                                        <option value="700">700 palavras</option>
+                                        <option value="800">800 palavras</option>
+                                        <option value="900">900 palavras</option>
+                                        <option value="1000">1000 palavras</option>
+                                        <option value="1000">1200 palavras</option>
+                                        <option value="1000">1400 palavras</option>
+                                        <option value="1000">1600 palavras</option>
+                                        <option value="1000">1800 palavras</option>
+                                        <option value="1000">2000 palavras</option>
+                                        <option value="1000">2200 palavras</option>
+                                        <option value="1000">2400 palavras</option>
+                                        <option value="1000">2600 palavras</option>
+                                        <option value="1000">2800 palavras</option>
+                                        <option value="1000">3000 palavras</option>
+                                        <option value="1000">3200 palavras</option>
+                                        <option value="1000">3400 palavras</option>
+                                        <option value="1000">3600 palavras</option>
+                                        <option value="1000">3800 palavras</option>
+                                        <option value="1000">4000 palavras</option>
+                                        <option value="1000">4200 palavras</option>
+                                        <option value="1000">4400 palavras</option>
+                                        <option value="1000">4600 palavras</option>
+                                        <option value="1000">4800 palavras</option>
+                                        <option value="1000">5000 palavras</option>
                                     </select>
                                 </div>
                             </div>

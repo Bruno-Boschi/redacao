@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Materias\RedatorAleatorio;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class RefreshMaterias extends Command
 {
@@ -19,12 +20,19 @@ class RefreshMaterias extends Command
 
     public function handle()
     {
-        RedatorAleatorio::whereRaw("coalesce(status,0) == 3")
-            ->whereRaw("DATEDIFF(DAY, data_leitura, GETDATE()) > 3")
-            ->update([
-                'status' => 0,
-                'usuario_id' => 0,
-                'data_leitura' => null,
-            ]);
+        $assuntos = RedatorAleatorio::all();
+        $data = Carbon::now()->subDay(3);
+
+        foreach ($assuntos as $assunto) {
+            if ($assunto->status == 3 && $assunto->data_leitura < $data) {
+                Log::channel('RefreshMateria')->info('Iniciando Refresh');
+                Log::channel('RefreshMateria')->info('Assunto ID:' . $assunto->id . ' esta vencido ');
+                $assunto->status = 0;
+                $assunto->usuario_id = 0;
+                $assunto->data_leitura = null;
+                $assunto->save();
+                Log::channel('RefreshMateria')->info('Assunto ID:' . $assunto->id . ' atualizado para status 0 (enviado)');
+            }
+        }
     }
 }
