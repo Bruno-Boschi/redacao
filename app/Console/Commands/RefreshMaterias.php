@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Materias\RedatorAleatorio;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class RefreshMaterias extends Command
@@ -18,10 +19,12 @@ class RefreshMaterias extends Command
 
     public function handle()
     {
-        $assuntos = RedatorAleatorio::all();
-        // foreach $assuntos as $assunto {
-
-        //     if($assunto->data_leitura > 3days )
-        // }
+        RedatorAleatorio::whereRaw("coalesce(status,0) == 3")
+            ->whereRaw("DATEDIFF(DAY, data_leitura, GETDATE()) > 3")
+            ->update([
+                'status' => 0,
+                'usuario_id' => 0,
+                'data_leitura' => null,
+            ]);
     }
 }
