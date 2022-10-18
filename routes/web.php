@@ -33,6 +33,6 @@ Route::group(['prefix' => '/', 'middleware' => []], function () {
 });
 
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@anyIndex')->name('home');
 
 Auth::routes();
