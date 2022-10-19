@@ -1,7 +1,7 @@
 /node_modules
 /public/hot
-/public/financeiros
-/public/materias/imagem_materias
+/public/assets/financeiros
+/public/assets/materias/imagem_materias
 /public/storage
 /storage/*.key
 /vendor
