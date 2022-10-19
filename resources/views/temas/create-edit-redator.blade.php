@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="col-md-3 ">
                                     <label class="text-muted">Quantidade de palavras:</label><br>
-                                    <select required class="form-control" id="qtd_palavras" name="qtd_palavras">
+                                    <select class="form-control" id="qtd_palavras" name="qtd_palavras">
                                         <option value="">
                                         </option>
                                         <option value="200">200 palavras</option>
@@ -91,7 +91,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="text-muted">Preço</label>
-                                    <input required type="text" class="form-control maskMoney-inputmask"
+                                    <input type="text" class="form-control maskMoney-inputmask"
                                         placeholder="Valor" name="preco_materia" value="">
                                 </div>
                             </div>
