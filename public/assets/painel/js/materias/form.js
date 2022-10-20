@@ -55,7 +55,8 @@ function adicionarLinha(descricao, titulo, idUrl = 0) {
   var celula2 = linha.insertCell(1);
   var celula3 = linha.insertCell(2);
   celula1.innerHTML = titulo;
-  celula2.innerHTML = descricao;
+  celula2.innerHTML =
+    '<a href="' + descricao + '" target="_blank">Url Link</a>';
   celula3.innerHTML =
     '<input type="hidden" id="pergunta" name="descricao_referencia[]" class="id_descricao_' +
     numeroLinhas +
@@ -75,10 +76,11 @@ function adicionarLinha(descricao, titulo, idUrl = 0) {
     numeroLinhas +
     '" value="' +
     idUrl +
-    '">' +
-    '<a href="#todas_url" onclick="removeLinha(' +
-    numeroLinhas +
-    ')" class="btn btn-danger">Remover</a>';
+    '">';
+  // +
+  // '<a href="#todas_url" onclick="removeLinha(' +
+  // numeroLinhas +
+  // ')" class="btn btn-danger">Remover</a>'
 }
 
 function removeLinha(linha) {

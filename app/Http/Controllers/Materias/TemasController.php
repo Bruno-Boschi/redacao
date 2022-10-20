@@ -294,8 +294,12 @@ class TemasController extends Controller
         $request = $this->request->all();
         $redatorSelecionado = (!isset($request['redator'])) ? $this->proximoUsuarioCadastrarTema(0) :
             $request['redator'];
-        $numero = str_replace('.', '', $request['preco_materia']);
-        $numero = str_replace(',', '.', $numero);
+        if (isset($request['preco_materia'])) {
+            $numero = str_replace('.', '', $request['preco_materia']);
+            $numero = str_replace(',', '.', $numero);
+        } else {
+            $numero = 0;
+        }
 
         $assunto = new RedatorAleatorio;
         $assunto->assunto = $request['assunto'];

@@ -241,12 +241,12 @@
                                                 <span class="hide-menu"> Minhas Matérias</span>
                                             </a>
                                         </li>
-                                        <li class="sidebar-item">
+                                        {{-- <li class="sidebar-item">
                                             <a href="/referencias-materias" class="sidebar-link">
                                                 <i class="mdi mdi-forum"></i>
                                                 <span class="hide-menu"> Referência Matérias</span>
                                             </a>
-                                        </li>
+                                        </li> --}}
                                         {{-- <li class="sidebar-item">
                                         <a href="/referencias-materias" class="sidebar-link">
                                             <i class="mdi mdi-forum"></i>
@@ -255,12 +255,12 @@
                                     </li> --}}
                                     @endif
                                     @if (Auth::user()->tipo_usuario == 'A')
-                                        <li class="sidebar-item">
+                                        {{-- <li class="sidebar-item">
                                             <a href="/referencias-materias" class="sidebar-link">
                                                 <i class="mdi mdi-forum"></i>
                                                 <span class="hide-menu"> Referência Matérias</span>
                                             </a>
-                                        </li>
+                                        </li> --}}
                                         <li class="sidebar-item">
                                             <a href="/temas" class="sidebar-link">
                                                 <i class="mdi mdi-pencil"></i>

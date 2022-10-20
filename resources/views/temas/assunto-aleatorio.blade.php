@@ -33,13 +33,18 @@
                                         <div>
                                             <input type="hidden" id="id_assunto" value="{{ $assunto[0]['id'] }}">
                                             <input type="hidden" id="id_tema" value="{{ $assunto[0]['tema_id'] }}">
-                                            <h5 class="card-title">Assunto: &nbsp;&nbsp;{{ $assunto[0]['assunto'] }}</h5>
-                                            <h5 class="card-title">Categoria: &nbsp;&nbsp;{{ $assunto[0]['tema'] }}</h5>
+                                            <h5 class="card-title">Tema: &nbsp;&nbsp;{{ $assunto[0]['assunto'] }}
+                                            </h5>
+                                            @if (isset($assunto[0]['tema']))
+                                                <h5 class="card-title">Categoria: &nbsp;&nbsp;{{ $assunto[0]['tema'] }}</h5>
+                                            @endif
                                             <h5 class="card-title">Idioma: &nbsp;&nbsp;{{ $assunto[0]['idioma'] }}</h5>
                                             <h5 class="card-title">Palavras: &nbsp;&nbsp;{{ $assunto[0]['qtd_palavras'] }}
-                                                <h5 class="card-title">Preço:
-                                                    &nbsp;&nbsp;R$&nbsp;{{ $assunto[0]['preco_materia'] }}
-                                                </h5>
+                                                @if (Auth::user()->tipo_redator == 'PJ')
+                                                    <h5 class="card-title">Preço:
+                                                        &nbsp;&nbsp;R$&nbsp;{{ $assunto[0]['preco_materia'] }}
+                                                    </h5>
+                                                @endif
                                             </h5>
                                             <p>
                                                 Descrição:<br>
@@ -61,42 +66,46 @@
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <br><br>
-                        <h4 class="page-title">Referência Tema</h4>
-                        <br>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table mb-0" id="all-member-table">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th width="40%" scope="col">Título</th>
-                                        <th width="40%" scope="col">Referência</th>
-                                        {{-- <th width="10%" scope="col">Link</th> --}}
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($referencias as $referencia)
-                                        <?php
-                                        $link = empty($referencia['link_wordpress']) ? '' : '<a href="' . $referencia['link_wordpress'] . '" target="_blank">Abrir</a>';
-                                        ?>
-                                        <?php
-                                        $linkRef = empty($referencia['descricao']) ? '' : '<a href="' . $referencia['descricao'] . '" target="_blank">Url Link</a>';
-                                        ?>
-                                        <tr>
-                                            <td width="40%" scope="col">{{ $referencia['titulo'] }}</td>
-                                            <td width="40%" scope="col"><?php echo $linkRef; ?></td>
-                                            {{-- <td width="40%" scope="col">{{ $referencia['descricao'] }}</td> --}}
-                                            <td width="10%" scope="col"><?php echo $link; ?></td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+
+                    @if (isset($referencias[0]))
+                        <div>
+                            <br><br>
+                            <h4 class="page-title">Referência Tema</h4>
+                            <br>
                         </div>
-                    </div>
-                    <br>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table mb-0" id="all-member-table">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th width="40%" scope="col">Título</th>
+                                            <th width="40%" scope="col">Referência</th>
+                                            {{-- <th width="10%" scope="col">Link</th> --}}
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($referencias as $referencia)
+                                            <?php
+                                            $link = empty($referencia['link_wordpress']) ? '' : '<a href="' . $referencia['link_wordpress'] . '" target="_blank">Abrir</a>';
+                                            ?>
+                                            <?php
+                                            $linkRef = empty($referencia['descricao']) ? '' : '<a href="' . $referencia['descricao'] . '" target="_blank">Url Link</a>';
+                                            ?>
+                                            <tr>
+                                                <td width="40%" scope="col">{{ $referencia['titulo'] }}</td>
+                                                <td width="40%" scope="col"><?php echo $linkRef; ?></td>
+                                                {{-- <td width="40%" scope="col">{{ $referencia['descricao'] }}</td> --}}
+                                                <td width="10%" scope="col"><?php echo $link; ?></td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <br>
+                    @endif
                     @if ($assunto[0]['status'] == 1)
                         <div class="row">
                             @if ($limiteRejeicoes > 0)

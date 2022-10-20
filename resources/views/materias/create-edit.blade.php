@@ -29,6 +29,8 @@
                     {!! csrf_field() !!}
                     @if (isset($solicitacao))
                         <input type="hidden" name="preco_materia" value="{{ $solicitacao->preco_materia }}">
+                        <input type="hidden" class="form-control" name="solicitacaoId" id="solicitacaoId"
+                            value="{{ $solicitacao->id }}">
                     @endif
                     @if (isset($materia->id))
                         <input type="hidden" name="id" value="{{ $materia->id }}">
@@ -41,7 +43,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label> Assunto: </label>
+                                        <label> Titulo: </label>
                                         <input required name="assunto" type="text" class="form-control validate"
                                             id="assunto" value="{{ isset($materia->assunto) ? $materia->assunto : '' }}">
                                     </div>
@@ -53,9 +55,9 @@
 
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <label>Categoria:</label>
-                                {{-- <select required class="form-control" id="tema_id" name="tema_id">
+                            {{-- <div class="col-md-12"> --}}
+                            {{-- <label>Categoria:</label> --}}
+                            {{-- <select required class="form-control" id="tema_id" name="tema_id">
                                     <option value=""></option>
                                     @foreach ($temas as $tema)
                                         <option value="{{ $tema->id }}"
@@ -63,15 +65,17 @@
                                             {{ $tema->descricao }}</option>
                                     @endforeach
                                 </select> --}}
-                                <select required class="form-control postTema" id="tema_id" name="tema_id">
+                            <input type="hidden" name="tema_id"
+                                value="{{ isset($solicitacao->tema_id) ? $solicitacao->tema_id : 0 }}">
+                            {{-- <select required class="form-control postTema" id="tema_id" name="tema_id">
                                     @foreach ($temas as $tema)
                                         <option value="{{ $tema->id }}"
                                             {{ $temaSelecionado == $tema->id ? 'selected' : '' }}>
                                             {{ $tema->descricao }}</option>
                                     @endforeach
-                                </select>
+                                </select> --}}
 
-                            </div>
+                            {{-- </div> --}}
                             <div class="row">
                                 <div class="col-md-12">
                                     <label>Imagem Principal:</label>
@@ -107,7 +111,7 @@
                                     <h4 class="page-title">Referencia Matéria</h4>
                                     <br>
                                 </div>
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="col-lg-5">
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-username">Título</label>
@@ -137,7 +141,7 @@
                                     <div class="col-lg-2">
                                         <a href="#salvar_url" class="btn btn-primary" id="salvar_url">Adicionar</a>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <br>
                                 <div class="row">
                                     <div class="col-md-12">
@@ -159,10 +163,7 @@
                         </div>
 
                     </div>
-                    @if (isset($solicitacao))
-                        <input type="hidden" class="form-control" name="solicitacaoId" id="solicitacaoId"
-                            value="{{ $solicitacao->id }}">
-                    @endif
+
                     <!--                 <input type="submit" class="btn btn-primary my-4" value="Salvar"> -->
                     <button class="btn btn-primary my-4" type="submit">Salvar</button>
                 </form>

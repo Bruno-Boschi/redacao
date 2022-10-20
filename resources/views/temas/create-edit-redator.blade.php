@@ -30,7 +30,7 @@
                         <div class="tab-pane active" id="dados" data-role="tabpanel">
                             <div class="row">
                                 <div class="col-md-6 dados_assunto">
-                                    <label class="text-muted">Assunto:</label>
+                                    <label class="text-muted">Tema:</label>
                                     <input required name="assunto" type="text" class="form-control" id="assunto"
                                         value="">
                                 </div>
@@ -91,7 +91,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="text-muted">Preço</label>
-                                    <input type="text" class="form-control maskMoney-inputmask"
+                                    <input required type="text" class="form-control maskMoney-inputmask"
                                         placeholder="Valor" name="preco_materia" value="">
                                 </div>
                             </div>

@@ -34,9 +34,21 @@ use App\Models\Materias\Materias;
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Assunto: {{ $materia[0]['assunto'] }}</h5>
-                                    <h5 class="card-title">Categoria: {{ $materia[0]['tema'] }}</h5>
+                                    <h5 class="card-title">Redator: {{ $materia[0]['name'] }}</h5>
+                                    <h5 class="card-title">Tipo Redator: {{ $materia[0]['tipo_redator'] }}</h5>
+                                    <h5 class="card-title">Titulo: {{ $materia[0]['assunto'] }}</h5>
+                                    @if (isset($materia[0]['tema']))
+                                        <h5 class="card-title">Categoria: {{ $materia[0]['tema'] }}</h5>
+                                    @endif
+
+                                    @if ($materia[0]['tipo_redator'] != 'CLT')
+                                        <h5 class="card-title">Preço:
+                                            &nbsp;&nbsp;R$&nbsp;{{ $materia[0]['valor_post'] }}
+                                        </h5>
+                                    @endif
+
                                     <h5 class="card-title">Idioma: {{ $materia[0]['idioma'] }}</h5>
+                                    <h5 class="card-title">Palavras: {{ $materia[0]['qtd_palavras'] }}</h5>
                                     @if (!empty($caminho))
                                         <img id="icone_img" style="width:30%;" src="{{ $caminho }}">
                                     @endif
@@ -83,6 +95,8 @@ use App\Models\Materias\Materias;
                             </table>
                         </div>
                     </div>
+                    <?php $temaSelecionado = isset($materia[0]['tema_id']) ? $materia[0]['tema_id'] : ''; ?>
+
                     <br><br>
                     @if ($materia[0]['status'] == Materias::CODIGO_STATUS_AGUARDANDO_AVALIACAO)
                         <form id="dados_cadastro" action="/materias/salvar-revisao" method="get">
@@ -100,6 +114,19 @@ use App\Models\Materias\Materias;
                                     </select>
                                 </div>
                             </div>
+                            <div class="row" id="categoria">
+                                <div class="col-4">
+                                    <label>Categoria:</label>
+                                    <select required class="form-control  postTema" onchange="ocultar()" id="tema_id"
+                                        name="tema_id">
+                                        @foreach ($temas as $tema)
+                                            <option value="{{ $tema->id }}"
+                                                {{ $temaSelecionado == $tema->id ? 'selected' : '' }}>
+                                                {{ $tema->descricao }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-4">
                                     <label>Dominio:</label>
@@ -111,6 +138,7 @@ use App\Models\Materias\Materias;
                                     </select>
                                 </div>
                             </div>
+
                             <div class="row retorno_reprovacao">
                                 <div class="col-lg-12">
                                     <div class="form-group">
@@ -133,4 +161,18 @@ use App\Models\Materias\Materias;
     <script src="{{ URL('/assets/painel/extra-libs/ck-editor/') }}/sample.js"></script>
     <script src="{{ URL('/assets/painel/extra-libs/ck-editor/') }}/jquery.js"></script>
     <script src="{{ URL('/assets/painel/js/materias/') }}/revisao.js"></script>
+    <script src="{{ URL('/assets/painel/js/libs/select2/dist/js/') }}/select2.min.js"></script>
+    <link href="{{ URL('/assets/painel/js/libs/select2/dist/css/') }}/select2.min.css" rel="stylesheet">
+    <script>
+        function ocultar() {
+            var status_id = document.getElementById("status_id").value;
+            if (status_id == 3) {
+                document.getElementById("categoria").style.display = "block";
+
+            } else {
+                document.getElementById("categoria").style.display = "none";
+
+            }
+        }
+    </script>
 @stop

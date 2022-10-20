@@ -114,7 +114,7 @@ class MateriasController extends Controller
             $records = Materias::orderBy($columnName, $columnSortOrder)
                 ->where('assunto', 'like', '%' . $searchValue . '%')
                 ->where('materias.status', '=', Materias::CODIGO_STATUS_AGUARDANDO_AVALIACAO)
-                ->select('materias.*', 'users.name', 'temas.descricao as tema')
+                ->select('materias.*', 'users.name', 'temas.descricao as tema',  'users.tipo_redator as user_redator')
                 ->leftJoin('temas', 'temas.id', '=', 'materias.tema_id')
                 ->leftJoin('users', 'users.id', '=', 'materias.usuario_id')
                 ->skip($start)
@@ -130,7 +130,7 @@ class MateriasController extends Controller
             // Fetch records
             $records = Materias::orderBy($columnName, $columnSortOrder)
                 ->where('assunto', 'like', '%' . $searchValue . '%')
-                ->select('materias.*', 'users.name', 'temas.descricao as tema')
+                ->select('materias.*', 'users.name', 'temas.descricao as tema', 'users.tipo_redator as user_redator')
                 ->leftJoin('temas', 'temas.id', '=', 'materias.tema_id')
                 ->leftJoin('users', 'users.id', '=', 'materias.usuario_id')
                 ->skip($start)
@@ -153,7 +153,7 @@ class MateriasController extends Controller
                 "imagem_principal" => '<div ><img width="70"  src="' . $caminho . '"></div>',
                 "assunto" => $record->assunto,
                 "tema" => $tema,
-                "name" => $usuario,
+                "name" => $usuario . ' - ' . $record->user_redator,
                 "idioma" => $record->idioma,
                 "status" => $status,
                 "options" => '<div class="m-icon"><a href="/materias/visualizar-materia/' . $record->id . '" title="Visualizar"><i class="me-2 mdi mdi-pencil-box-outline"></i></a></div>'
@@ -183,7 +183,6 @@ class MateriasController extends Controller
 
     public function postSalvar(Request $request)
     {
-
         if (!empty($request)) {
             if (isset($request['id'])) {
                 $materia = Materias::find($request['id']);
@@ -206,6 +205,15 @@ class MateriasController extends Controller
                 $materia->idioma = $request['idioma'];
                 $materia->usuario_id = Auth::user()->id;
 
+                if (isset($request->solicitacaoId)) {
+                    $assunto = RedatorAleatorio::find($request->solicitacaoId);
+                    $assunto->status = 4;
+                    $assunto->update();
+                    $materia->redator_aleatorio_id = $request->solicitacaoId;
+                } else {
+                    $materia->redator_aleatorio_id = 0;
+                }
+
                 if (Auth::user()->tipo_redator == "CLT") {
                     $materia->valor_post = 0;
                 } else {
@@ -217,12 +225,7 @@ class MateriasController extends Controller
                 $mensagem = 'Matéria adicionada com sucesso.';
             }
 
-            if (isset($request->solicitacaoId)) {
-                $assunto = RedatorAleatorio::find($request->solicitacaoId);
-                $assunto->status = 4;
 
-                $assunto->update();
-            }
 
             if (isset($request['titulo'])) {
                 for ($i = 0; $i < count($request['titulo']); $i++) {
@@ -340,15 +343,19 @@ class MateriasController extends Controller
     public function getVisualizarMateria($id)
     {
         $materia = Materias::where('materias.id', '=', $id)
-            ->select('materias.*', 'users.name', 'temas.descricao as tema')
+            ->select('materias.*', 'users.name', 'temas.descricao as tema', 'users.tipo_redator', 'redator_aleatorio.qtd_palavras')
             ->leftJoin('temas', 'temas.id', '=', 'materias.tema_id')
             ->leftJoin('users', 'users.id', '=', 'materias.usuario_id')
+            ->leftJoin('redator_aleatorio', 'redator_aleatorio.id', '=', 'materias.redator_aleatorio_id')
             ->get();
         $referencias = ReferenciasMaterias::where('materia_id', '=', $id)->get();
+        $temas = Temas::all();
+        // \dd($materia);
+        // return;
         // $referencias = Referencia::where('materia_id', '=', $id)->get();
         $dominios = Dominios::all();
 
-        return view('materias/visualizar-materia', compact('materia', 'referencias', 'dominios'));
+        return view('materias/visualizar-materia', compact('materia', 'referencias', 'dominios', 'temas'));
     }
 
     public function getRetornoReprovacao($id)
@@ -371,6 +378,13 @@ class MateriasController extends Controller
         ini_set('max_execution_time', 300);
 
         $materia = Materias::find($request['id']);
+        $tema_id = $request['tema_id'];
+
+        if ($tema_id != $materia->tema_id) {
+            $materia->tema_id = $request['tema_id'];
+            $materia->save();
+        }
+
         if ($request['status_id'] == 2) {
             $historico = new HistoricosReprovacoes();
             $historico->descricao = $request['descricao'];
@@ -379,13 +393,13 @@ class MateriasController extends Controller
 
             $mensagem = 'Matéria reprovada.';
         } else {
-            $idCategoria = TemasWordpress::where('id_tema', '=', $materia->tema_id)
+            $idCategoria = TemasWordpress::where('id_tema', '=', $tema_id)
                 ->where('id_dominio', $request['dominio_id'])
                 ->get();
 
             if (!isset($idCategoria[0]['id'])) {
-                $categoria = Temas::find($materia->tema_id);
-                $idCategoriaWordPress = ImportadorDadosWordPress::cadastrarCategoriaWordPress($categoria->descricao, $request['dominio_id'], $materia->tema_id);
+                $categoria = Temas::find($tema_id);
+                $idCategoriaWordPress = ImportadorDadosWordPress::cadastrarCategoriaWordPress($categoria->descricao, $request['dominio_id'], $tema_id);
             } else {
                 $idCategoriaWordPress = $idCategoria[0]['id_categoria_wordpress'];
             }
