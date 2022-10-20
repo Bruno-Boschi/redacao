@@ -56,17 +56,29 @@ use App\Helpers\FormataData;
                                         value="{{ isset($usuario->name) ? $usuario->name : '' }}">
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <label>Tipo:</label>
-                                <select required class="form-control" onchange="ocultar()" id="tipo_redator"
-                                    name="tipo_redator">
-                                    <option value="{{ isset($usuario->tipo_redator) ? $usuario->tipo_redator : '' }}">
-                                        {{ isset($usuario->tipo_redator) ? $usuario->tipo_redator : '' }}
-                                    </option>
-                                    <option value="CLT">CLT</option>
-                                    <option value="PJ">PJ</option>
-                                </select>
-                            </div>
+                            @if (Auth::user()->tipo_usuario == 'A')
+                                <div class="col-md-6">
+                                    <label>Tipo:</label>
+                                    <select required class="form-control" onchange="ocultar()" id="tipo_redator"
+                                        name="tipo_redator">
+                                        <option value="{{ isset($usuario->tipo_redator) ? $usuario->tipo_redator : '' }}">
+                                            {{ isset($usuario->tipo_redator) ? $usuario->tipo_redator : '' }}
+                                        </option>
+                                        <option value="CLT">CLT</option>
+                                        <option value="PJ">PJ</option>
+                                    </select>
+                                </div>
+                            @else
+                                <div class="col-md-6">
+                                    <label>Tipo:</label>
+                                    <select required class="form-control" onchange="ocultar()" id="tipo_redator"
+                                        name="tipo_redator" readonly>
+                                        <option value="{{ isset($usuario->tipo_redator) ? $usuario->tipo_redator : '' }}">
+                                            {{ isset($usuario->tipo_redator) ? $usuario->tipo_redator : '' }}
+                                        </option>
+                                    </select>
+                                </div>
+                            @endif
                         </div>
                     @else
                         <div class="row">
