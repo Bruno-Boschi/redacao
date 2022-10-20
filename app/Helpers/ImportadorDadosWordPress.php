@@ -11,6 +11,11 @@ use Carbon\Carbon;
 
 class ImportadorDadosWordPress
 {
+    public function removerAcentos($texto)
+    {
+        return preg_replace(array("/(á|à|ã|â|ä)/", "/(Á|À|Ã|Â|Ä)/", "/(é|è|ê|ë)/", "/(É|È|Ê|Ë)/", "/(í|ì|î|ï)/", "/(Í|Ì|Î|Ï)/", "/(ó|ò|õ|ô|ö)/", "/(Ó|Ò|Õ|Ô|Ö)/", "/(ú|ù|û|ü)/", "/(Ú|Ù|Û|Ü)/", "/(ñ)/", "/(Ñ)/"), explode(" ", "a A e E i I o O u U n N"), $texto);
+    }
+
     public static function carregaTemasWordPress($dominio, $idDominio)
     {
         $ultimoCaracter = substr($dominio, -1, 1);
@@ -180,9 +185,9 @@ class ImportadorDadosWordPress
         //             "source_url" => 'http://localhost:8000/assets/materias/imagem_materias/'.$imagem
         //         ];
         $data = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/assets/materias/imagem_materias/' . $imagem);
-
         $ch = curl_init();
         $url = $dominio . 'wp-json/wp/v2/media';
+
         $header =  array(
             'Authorization: Basic ' . base64_encode($dadosDominio->usuario_dominio . ':' . $dadosDominio->senha_dominio),
             "cache-control: no-cache",
@@ -204,17 +209,23 @@ class ImportadorDadosWordPress
         curl_close($ch);
         $dado = json_decode($response);
 
+
         return $dado->id;
     }
 
     public static function cadastrarPostWordPress($titulo, $descricao, $idTema, $idImagem, $idDominio)
     {
+
+        $var = new ImportadorDadosWordPress();
+
         $dadosDominio = Dominios::find($idDominio);
         $dominio = $dadosDominio->dominio;
         $ultimoCaracter = substr($dominio, -1, 1);
         $dominio = ($ultimoCaracter != '/') ? $dominio . '/' : $dominio . '';
         date_default_timezone_set('America/Sao_Paulo');
         $date = new \DateTime();
+        $slug = $var->removerAcentos($titulo);
+        \dd($slug);
         $body = [
             'title'   => $titulo,
             'status'  => 'publish',
@@ -222,7 +233,7 @@ class ImportadorDadosWordPress
             'categories' => $idTema,
             'featured_media' => $idImagem,
             'date' => $date->format('Y-m-d H:i:s'),
-            'slug' => str_replace(' ', '-', strtolower(trim($titulo)))
+            'slug' => str_replace(' ', '-', strtolower(trim($slug)))
         ];
 
         $ch = curl_init();
@@ -234,10 +245,10 @@ class ImportadorDadosWordPress
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($body));
-
         $response = curl_exec($ch);
         curl_close($ch);
         $dado = json_decode($response);
+
 
 
         return $dado->id;

@@ -7,6 +7,15 @@ CKEDITOR.editorConfig = function (config) {
 CKEDITOR.replace("descricao");
 
 $(document).ready(function () {
+  $(".retorno_reprovacao").hide();
+  $("#status_id").on("change", function () {
+    if ($(this).val() == "3") {
+      $(".retorno_reprovacao").hide();
+    } else if ($(this).val() == "2") {
+      $(".retorno_reprovacao").show();
+      CKEDITOR.instances["descricao"].setData("");
+    }
+  });
   $(".postTema").select2({
     placeholder: "Selecione a Categoria",
     minimumInputLength: 3,
@@ -26,38 +35,5 @@ $(document).ready(function () {
       },
       cache: true,
     },
-  });
-
-  $("#salvar_url").click(function () {
-    if ($("#titulo_referencia").val() == "") {
-      alert("Informe Título de Referência.");
-      $("#titulo_referencia").val("");
-      return;
-    }
-
-    if ($("#referencia").val() == "") {
-      alert("Informe a Referência.");
-      $("#referencia").val("");
-      return;
-    }
-
-    var referencia = $("#referencia").val();
-    var tituloReferencia = $("#titulo_referencia").val();
-    adicionarLinha(referencia, tituloReferencia);
-
-    $("#referencia").val("");
-    $("#titulo_referencia").val("");
-  });
-});
-
-$(document).ready(function () {
-  $(".retorno_reprovacao").hide();
-  $("#status_id").on("change", function () {
-    if ($(this).val() == "3") {
-      $(".retorno_reprovacao").hide();
-    } else if ($(this).val() == "2") {
-      $(".retorno_reprovacao").show();
-      CKEDITOR.instances["descricao"].setData("");
-    }
   });
 });
