@@ -442,8 +442,9 @@ class ComposerStaticInit3f7ba606f3df7ecf690971e3b8bd9628
 
     public static $classMap = array (
         'AddAtivoToUsersTable' => __DIR__ . '/../..' . '/database/migrations/2022_04_06_230931_add_ativo_to_users_table.php',
-        'AddExportedToMateriasTable' => __DIR__ . '/../..' . '/database/migrations/2022_09_26_121430_add_exported_to_materias_table.php',
+        'AddRedatorAleatorioIdToMateria' => __DIR__ . '/../..' . '/database/migrations/2022_10_19_160958_add_redator_aleatorio_id_to_materia.php',
         'App\\Article' => __DIR__ . '/../..' . '/app/Article.php',
+        'App\\Console\\Commands\\RefreshMaterias' => __DIR__ . '/../..' . '/app/Console/Commands/RefreshMaterias.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Helpers\\CentralNotificacao' => __DIR__ . '/../..' . '/app/Helpers/CentralNotificacao.php',
@@ -497,6 +498,7 @@ class ComposerStaticInit3f7ba606f3df7ecf690971e3b8bd9628
         'App\\Models\\Suportes\\Chamados' => __DIR__ . '/../..' . '/app/Models/Suportes/Chamados.php',
         'App\\Models\\TiposRedatores\\TipoRedator' => __DIR__ . '/../..' . '/app/Models/TiposRedatores/TipoRedator.php',
         'App\\Models\\Videos\\Videos' => __DIR__ . '/../..' . '/app/Models/Videos/Videos.php',
+        'App\\Policies\\ModelPolicy' => __DIR__ . '/../..' . '/app/Policies/ModelPolicy.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
@@ -597,7 +599,6 @@ class ComposerStaticInit3f7ba606f3df7ecf690971e3b8bd9628
         'CreateFaqsTable' => __DIR__ . '/../..' . '/database/migrations/2022_04_08_011239_create_faqs_table.php',
         'CreateFaturamentoDominioTable' => __DIR__ . '/../..' . '/database/migrations/2022_04_27_012553_create_faturamento_dominio_table.php',
         'CreateHistoricosReprovacoesTable' => __DIR__ . '/../..' . '/database/migrations/2022_04_13_234651_create_historicos_reprovacoes_table.php',
-        'CreateIdiomasMateriaTable' => __DIR__ . '/../..' . '/database/migrations/2022_09_16_110317_create_idiomas_materia_table.php',
         'CreateMateriasTable' => __DIR__ . '/../..' . '/database/migrations/2022_04_11_234556_create_materias_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreateRedatorAleatorioTable' => __DIR__ . '/../..' . '/database/migrations/2022_04_08_225837_create_redator_aleatorio_table.php',

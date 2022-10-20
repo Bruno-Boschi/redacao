@@ -7,8 +7,9 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddAtivoToUsersTable' => $baseDir . '/database/migrations/2022_04_06_230931_add_ativo_to_users_table.php',
-    'AddExportedToMateriasTable' => $baseDir . '/database/migrations/2022_09_26_121430_add_exported_to_materias_table.php',
+    'AddRedatorAleatorioIdToMateria' => $baseDir . '/database/migrations/2022_10_19_160958_add_redator_aleatorio_id_to_materia.php',
     'App\\Article' => $baseDir . '/app/Article.php',
+    'App\\Console\\Commands\\RefreshMaterias' => $baseDir . '/app/Console/Commands/RefreshMaterias.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Helpers\\CentralNotificacao' => $baseDir . '/app/Helpers/CentralNotificacao.php',
@@ -62,6 +63,7 @@ return array(
     'App\\Models\\Suportes\\Chamados' => $baseDir . '/app/Models/Suportes/Chamados.php',
     'App\\Models\\TiposRedatores\\TipoRedator' => $baseDir . '/app/Models/TiposRedatores/TipoRedator.php',
     'App\\Models\\Videos\\Videos' => $baseDir . '/app/Models/Videos/Videos.php',
+    'App\\Policies\\ModelPolicy' => $baseDir . '/app/Policies/ModelPolicy.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',
@@ -162,7 +164,6 @@ return array(
     'CreateFaqsTable' => $baseDir . '/database/migrations/2022_04_08_011239_create_faqs_table.php',
     'CreateFaturamentoDominioTable' => $baseDir . '/database/migrations/2022_04_27_012553_create_faturamento_dominio_table.php',
     'CreateHistoricosReprovacoesTable' => $baseDir . '/database/migrations/2022_04_13_234651_create_historicos_reprovacoes_table.php',
-    'CreateIdiomasMateriaTable' => $baseDir . '/database/migrations/2022_09_16_110317_create_idiomas_materia_table.php',
     'CreateMateriasTable' => $baseDir . '/database/migrations/2022_04_11_234556_create_materias_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreateRedatorAleatorioTable' => $baseDir . '/database/migrations/2022_04_08_225837_create_redator_aleatorio_table.php',

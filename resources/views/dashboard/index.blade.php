@@ -58,7 +58,11 @@ use App\Models\Materias\Temas;
                 <div class="card card-hover">
                     <div class="box bg-info text-center">
                         <h1 class="font-light text-white"><i class="mdi mdi-chart-areaspline"></i></h1>
-                        <h6 class="text-white">R$ {{ number_format($valorTotalReceber, 2, ',', '.') }} a receber</h6>
+                        @if (Auth::user()->tipo_redator != 'CLT')
+                            <h6 class="text-white">R$ {{ number_format($valorTotalReceber, 2, ',', '.') }} a receber</h6>
+                        @else
+                            <h6 class="text-white"> Stonks </h6>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -136,7 +140,9 @@ use App\Models\Materias\Temas;
                                         <th scope="col">Data/Hora</th>
                                         <th scope="col">Idioma</th>
                                         <th scope="col">Qtd Palavras</th>
-                                        <th scope="col">Preço</th>
+                                        @if (Auth::user()->tipo_redator == 'PJ')
+                                            <th scope="col">Preço</th>
+                                        @endif
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
@@ -148,7 +154,9 @@ use App\Models\Materias\Temas;
                                             <td>{{ FormataData::dataHoraDbParaBr($assunto->created_at) }}</td>
                                             <td>{{ $assunto->idioma }}</td>
                                             <td>{{ $assunto->qtd_palavras }}</td>
-                                            <td>R$ {{ $assunto->preco_materia }}</td>
+                                            @if (Auth::user()->tipo_redator == 'PJ')
+                                                <td>R$ {{ $assunto->preco_materia }}</td>
+                                            @endif
                                             <td><a href='/temas/assunto-aleatorio/<?= $assunto->id ?>'
                                                     class="link border-top"><i class="mdi mdi-search-web"></i></a></td>
                                         </tr>
