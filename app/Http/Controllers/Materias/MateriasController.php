@@ -380,10 +380,10 @@ class MateriasController extends Controller
         $materia = Materias::find($request['id']);
         $tema_id = $request['tema_id'];
 
-        if ($tema_id != $materia->tema_id) {
-            $materia->tema_id = $request['tema_id'];
-            $materia->save();
-        }
+        // if ($tema_id != $materia->tema_id) {
+        //     $materia->tema_id = $request['tema_id'];
+        //     $materia->save();
+        // }
 
         if ($request['status_id'] == 2) {
             $historico = new HistoricosReprovacoes();
@@ -403,7 +403,6 @@ class MateriasController extends Controller
             } else {
                 $idCategoriaWordPress = $idCategoria[0]['id_categoria_wordpress'];
             }
-
             $idImagemWordPress = ImportadorDadosWordPress::cadastrarImagemWordPress($materia->imagem_principal, $materia->assunto, $request['dominio_id']);
             $idMateria = ImportadorDadosWordPress::cadastrarPostWordPress(
                 $materia->assunto,

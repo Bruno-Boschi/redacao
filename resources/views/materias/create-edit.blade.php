@@ -35,8 +35,8 @@
                     @if (isset($materia->id))
                         <input type="hidden" name="id" value="{{ $materia->id }}">
                     @endif
-                    <?php $temaSelecionado = isset($solicitacao->tema_id) ? $solicitacao->tema_id : (isset($materia->tema_id) ? $materia->tema_id : ''); ?>
-                    <?php $idiomaSelecionado = isset($solicitacao->idioma) ? $solicitacao->idioma : ''; ?>
+                    <?php $temaSelecionado = isset($solicitacao->tema_id) ? $solicitacao->tema_id : (isset($materia->tema_id) ? $materia->tema_id : 0); ?>
+                    <?php $idiomaSelecionado = isset($solicitacao->idioma) ? $solicitacao->idioma : null; ?>
                     <div class="tab-content ">
                         <!-- style="display: none" -->
                         <div class="tab-pane active" id="dados" data-role="tabpanel">
@@ -50,6 +50,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label>Idioma:</label>
+
                                     <input required class="form-control" id="idioma" name="idioma"
                                         value="{{ isset($idiomaSelecionado) ? $idiomaSelecionado : (isset($materia->idioma) ? $materia->idioma : '') }}">
 
@@ -65,8 +66,7 @@
                                             {{ $tema->descricao }}</option>
                                     @endforeach
                                 </select> --}}
-                            <input type="hidden" name="tema_id"
-                                value="{{ isset($solicitacao->tema_id) ? $solicitacao->tema_id : 0 }}">
+                            <input type="hidden" name="tema_id" value="{{ $temaSelecionado }}">
                             {{-- <select required class="form-control postTema" id="tema_id" name="tema_id">
                                     @foreach ($temas as $tema)
                                         <option value="{{ $tema->id }}"
