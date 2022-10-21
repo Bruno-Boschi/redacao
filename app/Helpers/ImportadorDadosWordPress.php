@@ -191,7 +191,7 @@ class ImportadorDadosWordPress
             'Authorization: Basic ' . base64_encode($dadosDominio->usuario_dominio . ':' . $dadosDominio->senha_dominio),
             "cache-control: no-cache",
             'Content-Disposition: attachment; filename=' . $imagem,
-            'Content-Type: image/webp'
+            'Content-Type: image/jpg'
         );
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
