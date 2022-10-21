@@ -13,7 +13,7 @@ class ImportadorDadosWordPress
 {
     public function removerAcentos($texto)
     {
-        return preg_replace(array("/(á|à|ã|â|ä)/", "/(Á|À|Ã|Â|Ä)/", "/(é|è|ê|ë)/", "/(É|È|Ê|Ë)/", "/(í|ì|î|ï)/", "/(Í|Ì|Î|Ï)/", "/(ó|ò|õ|ô|ö)/", "/(Ó|Ò|Õ|Ô|Ö)/", "/(ú|ù|û|ü)/", "/(Ú|Ù|Û|Ü)/", "/(ñ)/", "/(Ñ)/"), explode(" ", "a A e E i I o O u U n N"), $texto);
+        return preg_replace(array("/(á|à|ã|â|ä)/", "/(Á|À|Ã|Â|Ä)/", "/(é|è|ê|ë)/", "/(É|È|Ê|Ë)/", "/(í|ì|î|ï)/", "/(Í|Ì|Î|Ï)/", "/(ó|ò|õ|ô|ö)/", "/(Ó|Ò|Õ|Ô|Ö)/", "/(ú|ù|û|ü)/", "/(Ú|Ù|Û|Ü)/", "/(ñ)/", "/(Ñ)/", "/(ç)/", "/(Ç)/"), explode(" ", "a A e E i I o O u U n N c C"), $texto);
     }
 
     public static function carregaTemasWordPress($dominio, $idDominio)
@@ -187,13 +187,13 @@ class ImportadorDadosWordPress
         $data = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/assets/materias/imagem_materias/' . $imagem);
         $ch = curl_init();
         $url = $dominio . 'wp-json/wp/v2/media';
-
         $header =  array(
             'Authorization: Basic ' . base64_encode($dadosDominio->usuario_dominio . ':' . $dadosDominio->senha_dominio),
             "cache-control: no-cache",
             'Content-Disposition: attachment; filename=' . $imagem,
-            'Content-Type: image/webp'
+            'Content-Type: image/jpg'
         );
+
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -204,10 +204,11 @@ class ImportadorDadosWordPress
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-
         $response = curl_exec($ch);
         curl_close($ch);
         $dado = json_decode($response);
+
+
 
 
         return $dado->id;
@@ -217,7 +218,6 @@ class ImportadorDadosWordPress
     {
 
         $var = new ImportadorDadosWordPress();
-
         $dadosDominio = Dominios::find($idDominio);
         $dominio = $dadosDominio->dominio;
         $ultimoCaracter = substr($dominio, -1, 1);
@@ -225,7 +225,6 @@ class ImportadorDadosWordPress
         date_default_timezone_set('America/Sao_Paulo');
         $date = new \DateTime();
         $slug = $var->removerAcentos($titulo);
-        \dd($slug);
         $body = [
             'title'   => $titulo,
             'status'  => 'publish',
@@ -246,6 +245,7 @@ class ImportadorDadosWordPress
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($body));
         $response = curl_exec($ch);
+
         curl_close($ch);
         $dado = json_decode($response);
 
