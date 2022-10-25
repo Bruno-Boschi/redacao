@@ -1,4 +1,7 @@
 <?php
+
+use Illuminate\Support\Facades\Mail;
+
 header('Access-Control-Allow-Origin: *');
 
 // if (env('APP_ENV') == 'production') {
@@ -31,6 +34,12 @@ Route::group(['prefix' => '/', 'middleware' => []], function () {
     Route::post('/referencias-materias/create-edit', 'Referencias\ReferenciasMateriasController@createEdit')->name('createEdit');
     Route::get('/referencias-materias/delete/{id}', 'Referencias\ReferenciasMateriasController@delete')->name('delete');
 });
+// Route::get('aprovado', function () {
+
+//     return new \App\Mail\acpNewUser($user);
+//     // Mail::send(new \App\Mail\acpNewUser($user));
+// });
+
 
 
 Route::get('/home', 'HomeController@anyIndex')->name('home');
