@@ -8,11 +8,9 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use stdClass;
 
-class newUser extends Mailable
+class acpNewUser extends Mailable
 {
     use Queueable, SerializesModels;
-
-    private $user;
 
     /**
      * Create a new message instance.
@@ -34,7 +32,7 @@ class newUser extends Mailable
     {
         $this->subject('Cadastro Redação');
         $this->to($this->usuario->email, $this->usuario->name);
-        return $this->markdown('mail.newUser', [
+        return $this->markdown('mail.acpNewUser', [
             'user' => $this->usuario,
         ]);
     }

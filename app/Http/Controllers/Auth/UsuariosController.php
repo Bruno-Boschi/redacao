@@ -11,6 +11,7 @@ use App\Models\TiposRedatores\TipoRedator;
 use App\Models\TiposRedatores\TiposRedatores;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class UsuariosController extends Controller
@@ -57,6 +58,7 @@ class UsuariosController extends Controller
                 $usuario->cpf = $request['cpf'];
                 $usuario->chave_pix = $request['chave_pix'];
                 $usuario->save();
+                Mail::send(new \App\Mail\newUser($usuario));
                 return redirect()->route('login');
             }
         }
@@ -198,9 +200,10 @@ class UsuariosController extends Controller
         return view('usuarios/create-edit', compact('usuario', 'tipoUsuario', 'departamentos'));
     }
 
-    public function getSalvar()
+    public function getAprovar()
     {
         $request = $this->request->all();
+
         if (!empty($request)) {
             $usuarioCadastrado = User::where('email', '=', $request['email'])
                 ->orWhere('cpf', '=', $request['cpf'])->count();
@@ -218,6 +221,57 @@ class UsuariosController extends Controller
                 $usuario->cpf = $request['cpf'];
                 $usuario->chave_pix = $request['chave_pix'];
                 $usuario->ativo = ($usuario->ativo == 2) ? 1 : $usuario->ativo;
+
+                if (isset($request['tipo_redator'])) {
+                    $usuario->tipo_redator = $request['tipo_redator'];
+                }
+
+                if (isset($request['departamento'])) {
+                    $usuario->departamento_id = $request['departamento'];
+                }
+                if (!empty(trim($request['password']))) {
+                    $usuario->password = Hash::make($request['password']);
+                }
+                $usuario->save();
+                // \dd($usuario);
+                $mensagem = 'Usuário aprovado com sucesso.';
+                Mail::send(new \App\Mail\acpNewUser($usuario));
+            }
+            if ($request['tipo_usuario'] == 'R') {
+                if (Auth::user()->tipo_usuario == 'R') {
+                    return redirect('dashboard');
+                }
+                return redirect('usuarios/redatores')->with('mensagem', $mensagem);
+            } else if ($request['tipo_usuario'] == 'A') {
+                return redirect('usuarios/administradores')->with('mensagem', $mensagem);
+            } else if ($request['tipo_usuario'] == 'P') {
+                return redirect('usuarios/publishers')->with('mensagem', $mensagem);
+            }
+        }
+
+        return view('usuarios');
+    }
+
+    public function getSalvar()
+    {
+        $request = $this->request->all();
+
+        if (!empty($request)) {
+            $usuarioCadastrado = User::where('email', '=', $request['email'])
+                ->orWhere('cpf', '=', $request['cpf'])->count();
+            if (($usuarioCadastrado > 0) && (!isset($request['id']))) {
+                $erro = 'Usuário já possui cadastrado.';
+                return redirect('usuarios/administradores')->with('erro', $erro);
+            }
+            if (isset($request['id'])) {
+                $usuario = User::find($request['id']);
+                $usuario->name = $request['name'];
+                $usuario->email = $request['email'];
+                $usuario->tipo_usuario = $request['tipo_usuario'];
+                $usuario->celular = $request['celular'];
+                $usuario->data_nascimento = FormataData::dataBrParaDb($request['data_nascimento']);
+                $usuario->cpf = $request['cpf'];
+                $usuario->chave_pix = $request['chave_pix'];
 
                 if (isset($request['tipo_redator'])) {
                     $usuario->tipo_redator = $request['tipo_redator'];

@@ -59,6 +59,7 @@ return [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
+    // 'from' => array('address' => null, 'name' => null),
 
     /*
     |--------------------------------------------------------------------------
@@ -120,7 +121,7 @@ return [
         ],
     ],
 
-    
+
     'stream' => [
         'ssl' => [
             'allow_self_signed' => true,
