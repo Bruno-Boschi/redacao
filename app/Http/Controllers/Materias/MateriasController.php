@@ -19,6 +19,7 @@ use App\Helpers\CentralNotificacao;
 use App\Models\CentralNotificacoes\CentralNotificacoes;
 use App\Models\Dominios\TemasWordpress;
 use App\Models\Materias\RedatorAleatorio;
+use Illuminate\Support\Facades\Mail;
 
 class MateriasController extends Controller
 {
@@ -377,7 +378,10 @@ class MateriasController extends Controller
         ini_set('memory_limit', -1);
         ini_set('max_execution_time', 300);
 
-        $materia = Materias::find($request['id']);
+        $materia = Materias::where('materias.id', '=', $request['id'])
+                ->leftJoin('users', 'users.id', '=', 'materias.usuario_id')
+                ->select('materias.*', 'users.name as usuario_name', 'users.email as usuario_email')
+                ->first();
         $tema_id = $request['tema_id'];
 
         // if ($tema_id != $materia->tema_id) {
@@ -392,6 +396,7 @@ class MateriasController extends Controller
             $historico->save();
 
             $mensagem = 'Matéria reprovada.';
+             Mail::send(new \App\Mail\reproMateria($materia));
         } else {
             $idCategoria = TemasWordpress::where('id_tema', '=', $tema_id)
                 ->where('id_dominio', $request['dominio_id'])
@@ -413,6 +418,7 @@ class MateriasController extends Controller
             );
             $materia->id_wordpress = $idMateria;
             $mensagem = 'Matéria aprovada e publicada.';
+            Mail::send(new \App\Mail\actMateria($materia));
         }
 
         CentralNotificacao::salvarNotificaoUsuario($materia->usuario_id, $mensagem, CentralNotificacoes::MODULO_MATERIAS);

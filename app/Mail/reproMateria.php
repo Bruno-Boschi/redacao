@@ -6,9 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use stdClass;
 
-class acpNewUser extends Mailable
+class reproMateria extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -17,10 +16,10 @@ class acpNewUser extends Mailable
      *
      * @return void
      */
-    public function __construct($usuario)
+    public function __construct($materia)
     {
         //
-        $this->usuario = $usuario;
+        $this->materia = $materia;
     }
 
     /**
@@ -30,10 +29,10 @@ class acpNewUser extends Mailable
      */
     public function build()
     {
-        $this->subject('Cadastro Redação');
-        $this->to($this->usuario->email, $this->usuario->name);
-        return $this->markdown('mail.acpNewUser', [
-            'user' => $this->usuario,
+        $this->subject('Matéria Reprovada');
+        $this->to($this->materia->usuario_email, $this->materia->usuario_name);
+        return $this->markdown('mail.reproMateria', [
+            'materia' => $this->materia,
         ]);
     }
 }

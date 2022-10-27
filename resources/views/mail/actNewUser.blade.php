@@ -1,5 +1,5 @@
 @component('mail::message')
-<h1>Bruno</h1>
+<h1> {{$user->name}}</h1>
 <p> PARABÉNS!!!!</p>
 <p> Seu Cadastro foi aprovado!</p>
 <p> Acesse para continuar.</p>
