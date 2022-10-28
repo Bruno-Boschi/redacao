@@ -114,7 +114,7 @@ use App\Models\Materias\Materias;
                                     </select>
                                 </div>
                             </div>
-                            <div class="row" id="categoria">
+                            <div class="row retorno_reprovacao2" id="categoria">
                                 <div class="col-4">
                                     <label>Categoria:</label>
                                     <select required class="form-control  postTema" onchange="ocultar()" id="tema_id"
@@ -127,7 +127,7 @@ use App\Models\Materias\Materias;
                                     </select>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row retorno_reprovacao2">
                                 <div class="col-4">
                                     <label>Dominio:</label>
                                     <select required class="form-control" id="dominio_id" name="dominio_id">

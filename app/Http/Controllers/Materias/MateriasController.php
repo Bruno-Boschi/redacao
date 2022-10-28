@@ -104,10 +104,12 @@ class MateriasController extends Controller
 
         if ($somenteRevisao) {
             $totalRecords = Materias::where('status', '=', Materias::CODIGO_STATUS_AGUARDANDO_AVALIACAO)
+                ->where('leilao', 0)
                 ->select('count(*) as allcount')
                 ->count();
             $totalRecordswithFilter = Materias::select('count(*) as allcount')
                 ->where('assunto', 'like', '%' . $searchValue . '%')
+                ->where('leilao', 0)
                 ->where('status', '=', Materias::CODIGO_STATUS_AGUARDANDO_AVALIACAO)
                 ->count();
 
@@ -115,6 +117,7 @@ class MateriasController extends Controller
             $records = Materias::orderBy($columnName, $columnSortOrder)
                 ->where('assunto', 'like', '%' . $searchValue . '%')
                 ->where('materias.status', '=', Materias::CODIGO_STATUS_AGUARDANDO_AVALIACAO)
+                ->where('leilao', 0)
                 ->select('materias.*', 'users.name', 'temas.descricao as tema',  'users.tipo_redator as user_redator')
                 ->leftJoin('temas', 'temas.id', '=', 'materias.tema_id')
                 ->leftJoin('users', 'users.id', '=', 'materias.usuario_id')
@@ -220,6 +223,7 @@ class MateriasController extends Controller
                 } else {
                     $materia->valor_post = $request['preco_materia'];
                 }
+
                 $materia->status = 0;
                 $materia->imagem_principal = $request['imagem'];
                 $materia->save();
@@ -244,6 +248,69 @@ class MateriasController extends Controller
 
         return view('materias/minhas-materias');
     }
+
+    public function getCreateEditLeilao($id = 0)
+    {
+        $materia = Materias::find($id);
+        $temas = Temas::all();
+        return view('materias/create-edit-leilao', compact('materia', 'temas'));
+    }
+
+    public function postSalvarLeilao(Request $request)
+    {
+        if (isset($request['valor_post'])) {
+            $numero = str_replace('.', '', $request['valor_post']);
+            $numero = str_replace(',', '.', $numero);
+        }
+
+        if (!empty($request)) {
+            if (isset($request['id'])) {
+                $materia = Materias::find($request['id']);
+                $materia->assunto = $request['assunto'];
+                $materia->descricao = $request['descricao'];
+                $materia->idioma = $request['idioma'];
+                $materia->tema_id = $request['tema_id'];
+                $materia->valor_post = $numero;
+                $materia->status = 0;
+                $materia->imagem_principal = $request['imagem'];
+                $materia->save();
+                $mensagem = 'Matéria editada com sucesso.';
+            } else {
+
+                $materia = new Materias;
+                $materia->assunto = $request['assunto'];
+                $materia->descricao = $request['descricao'];
+                $materia->tema_id = $request['tema_id'];
+                $materia->idioma = $request['idioma'];
+                $materia->usuario_id = Auth::user()->id;
+                $materia->redator_aleatorio_id = 0;
+                $materia->valor_post = $numero;
+                $materia->status = 0;
+                $materia->leilao = 1;
+                $materia->imagem_principal = $request['imagem'];
+                $materia->save();
+                $mensagem = 'Matéria adicionada com sucesso.';
+            }
+
+
+
+            if (isset($request['titulo'])) {
+                for ($i = 0; $i < count($request['titulo']); $i++) {
+                    $referenciaMateria = new ReferenciasMaterias;
+                    $referenciaMateria->link = $request['descricao_referencia'][$i];
+                    $referenciaMateria->titulo = $request['titulo'][$i];
+                    $referenciaMateria->materia_id = $materia->id;
+                    $referenciaMateria->tema_id = $materia->tema_id;
+                    $referenciaMateria->save();
+                }
+            }
+
+            return redirect('materias/minhas-materias')->with('mensagem', $mensagem);
+        }
+
+        return view('materias/minhas-materias');
+    }
+
 
     public function getExcluir($id)
     {
@@ -379,9 +446,9 @@ class MateriasController extends Controller
         ini_set('max_execution_time', 300);
 
         $materia = Materias::where('materias.id', '=', $request['id'])
-                ->leftJoin('users', 'users.id', '=', 'materias.usuario_id')
-                ->select('materias.*', 'users.name as usuario_name', 'users.email as usuario_email')
-                ->first();
+            ->leftJoin('users', 'users.id', '=', 'materias.usuario_id')
+            ->select('materias.*', 'users.name as usuario_name', 'users.email as usuario_email')
+            ->first();
         $tema_id = $request['tema_id'];
 
         // if ($tema_id != $materia->tema_id) {
@@ -396,7 +463,7 @@ class MateriasController extends Controller
             $historico->save();
 
             $mensagem = 'Matéria reprovada.';
-             Mail::send(new \App\Mail\reproMateria($materia));
+            Mail::send(new \App\Mail\reproMateria($materia));
         } else {
             $idCategoria = TemasWordpress::where('id_tema', '=', $tema_id)
                 ->where('id_dominio', $request['dominio_id'])

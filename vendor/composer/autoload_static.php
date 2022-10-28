@@ -442,6 +442,7 @@ class ComposerStaticInit3f7ba606f3df7ecf690971e3b8bd9628
 
     public static $classMap = array (
         'AddAtivoToUsersTable' => __DIR__ . '/../..' . '/database/migrations/2022_04_06_230931_add_ativo_to_users_table.php',
+        'AddLeilaoToMaterias' => __DIR__ . '/../..' . '/database/migrations/2022_10_28_082438_add_leilao_to_materias.php',
         'AddRedatorAleatorioIdToMateria' => __DIR__ . '/../..' . '/database/migrations/2022_10_19_160958_add_redator_aleatorio_id_to_materia.php',
         'App\\Article' => __DIR__ . '/../..' . '/app/Article.php',
         'App\\Console\\Commands\\RefreshMaterias' => __DIR__ . '/../..' . '/app/Console/Commands/RefreshMaterias.php',
@@ -468,6 +469,7 @@ class ComposerStaticInit3f7ba606f3df7ecf690971e3b8bd9628
         'App\\Http\\Controllers\\Faqs\\FaqsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Faqs/FaqsController.php',
         'App\\Http\\Controllers\\Financeiros\\FinanceirosController' => __DIR__ . '/../..' . '/app/Http/Controllers/Financeiros/FinanceirosController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\Leilao\\LeilaoController' => __DIR__ . '/../..' . '/app/Http/Controllers/Leilao/LeilaoController.php',
         'App\\Http\\Controllers\\Materias\\MateriasController' => __DIR__ . '/../..' . '/app/Http/Controllers/Materias/MateriasController.php',
         'App\\Http\\Controllers\\Materias\\TemasController' => __DIR__ . '/../..' . '/app/Http/Controllers/Materias/TemasController.php',
         'App\\Http\\Controllers\\Referencias\\ReferenciasMateriasController' => __DIR__ . '/../..' . '/app/Http/Controllers/Referencias/ReferenciasMateriasController.php',
@@ -479,6 +481,12 @@ class ComposerStaticInit3f7ba606f3df7ecf690971e3b8bd9628
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Mail\\actMateria' => __DIR__ . '/../..' . '/app/Mail/actMateria.php',
+        'App\\Mail\\actNewUser' => __DIR__ . '/../..' . '/app/Mail/actNewUser.php',
+        'App\\Mail\\expDemanda' => __DIR__ . '/../..' . '/app/Mail/expDemanda.php',
+        'App\\Mail\\newUser' => __DIR__ . '/../..' . '/app/Mail/newUser.php',
+        'App\\Mail\\reproMateria' => __DIR__ . '/../..' . '/app/Mail/reproMateria.php',
+        'App\\Mail\\vencDemanda' => __DIR__ . '/../..' . '/app/Mail/vencDemanda.php',
         'App\\Models\\Avisos\\Avisos' => __DIR__ . '/../..' . '/app/Models/Avisos/Avisos.php',
         'App\\Models\\CentralNotificacoes\\CentralNotificacoes' => __DIR__ . '/../..' . '/app/Models/CentralNotificacoes/CentralNotificacoes.php',
         'App\\Models\\Configuracoes\\Configuracoes' => __DIR__ . '/../..' . '/app/Models/Configuracoes/Configuracoes.php',

@@ -79,9 +79,16 @@ use App\Models\Materias\Temas;
 
                                 @if (Auth::user()->tipo_redator == 'CLT')
                                     <div class="d-flex justify-content-between" role="group">
-                                        <a href="/materias/create-edit" class="btn btn-success text-white">Nova Matéria</a>
+                                        <a href="/materias/create-edit" class="btn btn-success text-white">Nova
+                                            Matéria</a>
+                                    </div>
+                                @else
+                                    <div class="d-flex justify-content-between" role="group">
+                                        <a href="/materias/create-edit-leilao" class="btn btn-success text-white">Nova
+                                            Matéria</a>
                                     </div>
                                 @endif
+
 
                             </div>
                             <table class="table">
