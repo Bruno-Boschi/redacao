@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddAtivoToUsersTable' => $baseDir . '/database/migrations/2022_04_06_230931_add_ativo_to_users_table.php',
+    'AddLeilaoToMaterias' => $baseDir . '/database/migrations/2022_10_28_082438_add_leilao_to_materias.php',
     'AddRedatorAleatorioIdToMateria' => $baseDir . '/database/migrations/2022_10_19_160958_add_redator_aleatorio_id_to_materia.php',
     'App\\Article' => $baseDir . '/app/Article.php',
     'App\\Console\\Commands\\RefreshMaterias' => $baseDir . '/app/Console/Commands/RefreshMaterias.php',
@@ -33,6 +34,7 @@ return array(
     'App\\Http\\Controllers\\Faqs\\FaqsController' => $baseDir . '/app/Http/Controllers/Faqs/FaqsController.php',
     'App\\Http\\Controllers\\Financeiros\\FinanceirosController' => $baseDir . '/app/Http/Controllers/Financeiros/FinanceirosController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
+    'App\\Http\\Controllers\\Leilao\\LeilaoController' => $baseDir . '/app/Http/Controllers/Leilao/LeilaoController.php',
     'App\\Http\\Controllers\\Materias\\MateriasController' => $baseDir . '/app/Http/Controllers/Materias/MateriasController.php',
     'App\\Http\\Controllers\\Materias\\TemasController' => $baseDir . '/app/Http/Controllers/Materias/TemasController.php',
     'App\\Http\\Controllers\\Referencias\\ReferenciasMateriasController' => $baseDir . '/app/Http/Controllers/Referencias/ReferenciasMateriasController.php',
@@ -44,6 +46,12 @@ return array(
     'App\\Http\\Middleware\\RedirectIfAuthenticated' => $baseDir . '/app/Http/Middleware/RedirectIfAuthenticated.php',
     'App\\Http\\Middleware\\TrimStrings' => $baseDir . '/app/Http/Middleware/TrimStrings.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
+    'App\\Mail\\actMateria' => $baseDir . '/app/Mail/actMateria.php',
+    'App\\Mail\\actNewUser' => $baseDir . '/app/Mail/actNewUser.php',
+    'App\\Mail\\expDemanda' => $baseDir . '/app/Mail/expDemanda.php',
+    'App\\Mail\\newUser' => $baseDir . '/app/Mail/newUser.php',
+    'App\\Mail\\reproMateria' => $baseDir . '/app/Mail/reproMateria.php',
+    'App\\Mail\\vencDemanda' => $baseDir . '/app/Mail/vencDemanda.php',
     'App\\Models\\Avisos\\Avisos' => $baseDir . '/app/Models/Avisos/Avisos.php',
     'App\\Models\\CentralNotificacoes\\CentralNotificacoes' => $baseDir . '/app/Models/CentralNotificacoes/CentralNotificacoes.php',
     'App\\Models\\Configuracoes\\Configuracoes' => $baseDir . '/app/Models/Configuracoes/Configuracoes.php',

@@ -27,18 +27,19 @@ Route::group(['prefix' => '/', 'middleware' => []], function () {
     AdvancedRoute::controller('/dominios', 'Dominios\DominiosController');
     AdvancedRoute::controller('/avisos', 'Avisos\AvisosController');
 
+
     //REFERENCIA
     Route::get('/referencias-materias', 'Referencias\ReferenciasMateriasController@getIndex')->name('index');
     Route::get('/referencias-materias/create-edit', 'Referencias\ReferenciasMateriasController@getCreateEdit')->name('getCreateEdit');
     Route::get('/referencias-materias/create-edit/{id}', 'Referencias\ReferenciasMateriasController@getCreateEdit')->name('getCreateEdit');
     Route::post('/referencias-materias/create-edit', 'Referencias\ReferenciasMateriasController@createEdit')->name('createEdit');
     Route::get('/referencias-materias/delete/{id}', 'Referencias\ReferenciasMateriasController@delete')->name('delete');
-});
-// Route::get('aprovado', function () {
 
-//     return new \App\Mail\acpNewUser($user);
-//     // Mail::send(new \App\Mail\acpNewUser($user));
-// });
+    //Leiao Materias
+    Route::get('/leilao-materias', 'Leilao\LeilaoController@getIndex')->name('index');
+});
+
+
 
 
 

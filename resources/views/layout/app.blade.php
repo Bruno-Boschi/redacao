@@ -233,6 +233,12 @@
                                                 <span class="hide-menu"> Revisar Matérias</span>
                                             </a>
                                         </li>
+                                        <li class="sidebar-item">
+                                            <a href="/leilao-materias" class="sidebar-link">
+                                                <i class="mdi mdi-pencil"></i>
+                                                <span class="hide-menu"> Leilão Matérias</span>
+                                            </a>
+                                        </li>
                                     @endif
                                     @if (Auth::user()->tipo_usuario == 'R')
                                         <li class="sidebar-item">

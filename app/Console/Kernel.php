@@ -15,6 +15,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         //
         Commands\RefreshMaterias::class,
+
+
     ];
 
     /**
@@ -28,7 +30,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('refresh_materias')
             ->dailyAt('01:00');
-            // ->everyMinute();
+        // ->everyMinute();
     }
 
     /**

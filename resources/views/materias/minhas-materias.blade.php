@@ -26,13 +26,19 @@
                             </div>
                         @endif
 
-                        @if (Auth::user()->tipo_redator == 'CLT')
-                            <div class="col-md-10">
+
+                        <div class="col-md-10">
+                            @if (Auth::user()->tipo_redator == 'CLT')
                                 <div class="btn-group mt-2" role="group">
-                                    <a href="/materias/create-edit" class="btn btn-success text-white">Cadastrar</a>
+                                    <a href="/materias/create-edit" class="btn btn-success text-white">Criar</a>
                                 </div>
-                            </div>
-                        @endif
+                            @else
+                                <div class="btn-group mt-2" role="group">
+                                    <a href="/materias/create-edit-leilao" class="btn btn-success text-white">Criar</a>
+                                </div>
+                            @endif
+                        </div>
+
                         <div class="col-md-2">
                         </div>
                     </div>

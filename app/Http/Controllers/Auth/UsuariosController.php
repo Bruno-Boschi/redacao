@@ -235,7 +235,7 @@ class UsuariosController extends Controller
                 $usuario->save();
                 // \dd($usuario);
                 $mensagem = 'Usuário aprovado com sucesso.';
-                Mail::send(new \App\Mail\acpNewUser($usuario));
+                Mail::send(new \App\Mail\actNewUser($usuario));
             }
             if ($request['tipo_usuario'] == 'R') {
                 if (Auth::user()->tipo_usuario == 'R') {
