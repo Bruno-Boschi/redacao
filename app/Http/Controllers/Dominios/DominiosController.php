@@ -138,7 +138,8 @@ class DominiosController extends Controller
     {
         $request = $this->request->all();
         $dominio = Dominios::find($request['idDominio']);
-        ImportadorDadosWordPress::carregaPostWordPress($dominio->dominio, $request['idDominio']);
+        //DESABILITADO TEMPORARIAMENTE -  PUXA AS MATERIAS JA PUBLICADAS
+        // ImportadorDadosWordPress::carregaPostWordPress($dominio->dominio, $request['idDominio']);
         echo json_encode(array('status' => 1));
         exit;
     }
