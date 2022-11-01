@@ -80,7 +80,7 @@
                                 <div class="col-md-12">
                                     <label>Imagem Principal:</label>
                                     <input type="file" class="form-control" data-name="imagem" name="imagem_principal"
-                                        id="imagem_principal" required>
+                                        id="imagem_principal" > <!-- required tirado pelo nomeline 01/11/22 -->
 
                                     <input type="hidden" id="imagem" name="imagem" class="form-control"
                                         value="{{ isset($materia->imagem_principal) }}">
