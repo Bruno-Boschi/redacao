@@ -19,6 +19,7 @@ $(document).ready(function () {
       },
       { data: "assunto" },
       { data: "name" },
+      { data: "url" },
       { data: "tema" },
       { data: "idioma" },
       { data: "status" },

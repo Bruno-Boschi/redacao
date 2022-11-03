@@ -35,6 +35,7 @@
                                         <th></th>
                                         <th>Assunto</th>
                                         <th>Usuário</th>
+                                        <th>URL</th>
                                         <th>Tema</th>
                                         <th>Idioma</th>
                                         <th>Status</th>
