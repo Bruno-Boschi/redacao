@@ -118,7 +118,8 @@ class MateriasController extends Controller
                 ->where('assunto', 'like', '%' . $searchValue . '%')
                 ->where('materias.status', '=', Materias::CODIGO_STATUS_AGUARDANDO_AVALIACAO)
                 ->where('leilao', 0)
-                ->select('materias.*', 'users.name', 'temas.descricao as tema',  'users.tipo_redator as user_redator')
+                ->select('materias.*', 'users.name', 'temas.descricao as tema',  'users.tipo_redator as user_redator', 'dominios.dominio as url')
+                ->leftJoin('dominios', 'dominios.id', '=', 'materias.id_dominio')
                 ->leftJoin('temas', 'temas.id', '=', 'materias.tema_id')
                 ->leftJoin('users', 'users.id', '=', 'materias.usuario_id')
                 ->skip($start)
@@ -134,7 +135,8 @@ class MateriasController extends Controller
             // Fetch records
             $records = Materias::orderBy($columnName, $columnSortOrder)
                 ->where('assunto', 'like', '%' . $searchValue . '%')
-                ->select('materias.*', 'users.name', 'temas.descricao as tema', 'users.tipo_redator as user_redator')
+                ->select('materias.*', 'users.name', 'temas.descricao as tema', 'users.tipo_redator as user_redator', 'dominios.dominio as url')
+                ->leftJoin('dominios', 'dominios.id', '=', 'materias.id_dominio')
                 ->leftJoin('temas', 'temas.id', '=', 'materias.tema_id')
                 ->leftJoin('users', 'users.id', '=', 'materias.usuario_id')
                 ->skip($start)
@@ -158,6 +160,7 @@ class MateriasController extends Controller
                 "assunto" => $record->assunto,
                 "tema" => $tema,
                 "name" => $usuario . ' - ' . $record->user_redator,
+                "url" => $record->url,
                 "idioma" => $record->idioma,
                 "status" => $status,
                 "options" => '<div class="m-icon"><a href="/materias/visualizar-materia/' . $record->id . '" title="Visualizar"><i class="me-2 mdi mdi-pencil-box-outline"></i></a></div>'
