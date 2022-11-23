@@ -26,6 +26,7 @@ Route::group(['prefix' => '/', 'middleware' => []], function () {
     AdvancedRoute::controller('/materias', 'Materias\MateriasController');
     AdvancedRoute::controller('/dominios', 'Dominios\DominiosController');
     AdvancedRoute::controller('/avisos', 'Avisos\AvisosController');
+    AdvancedRoute::controller('/relatorios', 'Relatorios\RelatoriosController');
 
 
     //REFERENCIA

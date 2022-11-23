@@ -473,6 +473,7 @@ class ComposerStaticInit3f7ba606f3df7ecf690971e3b8bd9628
         'App\\Http\\Controllers\\Materias\\MateriasController' => __DIR__ . '/../..' . '/app/Http/Controllers/Materias/MateriasController.php',
         'App\\Http\\Controllers\\Materias\\TemasController' => __DIR__ . '/../..' . '/app/Http/Controllers/Materias/TemasController.php',
         'App\\Http\\Controllers\\Referencias\\ReferenciasMateriasController' => __DIR__ . '/../..' . '/app/Http/Controllers/Referencias/ReferenciasMateriasController.php',
+        'App\\Http\\Controllers\\Relatorios\\RelatoriosController' => __DIR__ . '/../..' . '/app/Http/Controllers/Relatorios/RelatoriosController.php',
         'App\\Http\\Controllers\\Sincronizador\\SincronizarController' => __DIR__ . '/../..' . '/app/Http/Controllers/Sincronizador/SincronizarController.php',
         'App\\Http\\Controllers\\Suportes\\SuportesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Suportes/SuportesController.php',
         'App\\Http\\Controllers\\Videos\\VideosController' => __DIR__ . '/../..' . '/app/Http/Controllers/Videos/VideosController.php',

@@ -38,6 +38,7 @@ return array(
     'App\\Http\\Controllers\\Materias\\MateriasController' => $baseDir . '/app/Http/Controllers/Materias/MateriasController.php',
     'App\\Http\\Controllers\\Materias\\TemasController' => $baseDir . '/app/Http/Controllers/Materias/TemasController.php',
     'App\\Http\\Controllers\\Referencias\\ReferenciasMateriasController' => $baseDir . '/app/Http/Controllers/Referencias/ReferenciasMateriasController.php',
+    'App\\Http\\Controllers\\Relatorios\\RelatoriosController' => $baseDir . '/app/Http/Controllers/Relatorios/RelatoriosController.php',
     'App\\Http\\Controllers\\Sincronizador\\SincronizarController' => $baseDir . '/app/Http/Controllers/Sincronizador/SincronizarController.php',
     'App\\Http\\Controllers\\Suportes\\SuportesController' => $baseDir . '/app/Http/Controllers/Suportes/SuportesController.php',
     'App\\Http\\Controllers\\Videos\\VideosController' => $baseDir . '/app/Http/Controllers/Videos/VideosController.php',
