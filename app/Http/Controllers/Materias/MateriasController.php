@@ -478,7 +478,8 @@ class MateriasController extends Controller
             } else {
                 $idCategoriaWordPress = $idCategoria[0]['id_categoria_wordpress'];
             }
-            $idImagemWordPress = ImportadorDadosWordPress::cadastrarImagemWordPress($materia->imagem_principal, $materia->assunto, $request['dominio_id']);
+            $idImagemWordPress = ($materia->imagem_principal) ? ImportadorDadosWordPress::cadastrarImagemWordPress($materia->imagem_principal, $materia->assunto, $request['dominio_id']) : 0;
+
             $idMateria = ImportadorDadosWordPress::cadastrarPostWordPress(
                 $materia->assunto,
                 $materia->descricao,
