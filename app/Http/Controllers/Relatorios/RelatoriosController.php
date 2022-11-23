@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Relatorios;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Factory;
 
 class RelatoriosController extends Controller
 {
@@ -21,12 +22,18 @@ class RelatoriosController extends Controller
     {
         // $request = $this->request->all();
         // if (!empty($request)) {
-        //     $dados = $this->dadosRelatorios($request);
+        //     $dados = $this->rankingRedatores();
+        //     \dd($dados);
         //     echo $dados;
         //     exit();
         // }
 
-        return view('/relatorios/index');
+        $dados = $this->rankingRedatores();
+        \dd($dados);
+
+        return view('/relatorios/index', compact(
+            'dados',
+        ));
     }
 
     /**
@@ -88,6 +95,29 @@ class RelatoriosController extends Controller
         );
 
         return json_encode($response);
+    }
+
+    private static function rankingRedatores()
+    {
+        $sql = 'SELECT count(usuario_id) as total_materias, 
+                	   (SELECT COUNT(*) 
+                        FROM redator_aleatorio 
+                        WHERE usuario_id = materias.usuario_id
+                          AND status = 2) as rejetado,
+                       (SELECT COUNT(*) 
+                        FROM redator_aleatorio 
+                        WHERE usuario_id = materias.usuario_id
+                          AND status = 3) as aceite,
+                       users.name,
+                        materias.usuario_id as id
+                FROM materias
+                INNER JOIN users ON users.id = materias.usuario_id
+                WHERE materias.deleted_at is null
+                GROUP BY usuario_id, users.name
+                LIMIT 50;';
+        $records = \DB::select($sql);
+
+        return $records;
     }
 
     /**

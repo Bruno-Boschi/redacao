@@ -475,37 +475,25 @@
                                 </ul>
                             </li>
                         @endif --}}
-                        {{-- @if (Auth::user()->tipo_usuario == 'A')
+                        @if (Auth::user()->tipo_usuario == 'A')
                             <li class="sidebar-item">
                                 <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
                                     aria-expanded="false">
-                                    <i class="mdi mdi-account-multiple-plus"></i>
+                                    <i class="mdi mdi-file-chart"></i>
                                     <span class="hide-menu">Relatorios</span>
                                 </a>
                                 <ul aria-expanded="false" class="collapse  first-level">
                                     <li class="sidebar-item">
                                         @if (Auth::user()->departamento_id != 2)
-                                            <a href="/usuarios/redatores" class="sidebar-link">
-                                                <i class="mdi mdi-account-key"></i>
+                                            <a href="/relatorios" class="sidebar-link">
+                                                <i class="mdi mdi-chart-line"></i>
                                                 <span class="hide-menu">Redatores </span>
                                             </a>
-                                            <a href="/usuarios/publishers" class="sidebar-link">
-                                                <i class="mdi mdi-account-key"></i>
-                                                <span class="hide-menu">Publishers</span>
-                                            </a>
                                         @endif
-
-                                        @if (Auth::user()->departamento_id != 1)
-                                            <a href="/usuarios/administradores" class="sidebar-link">
-                                                <i class="mdi mdi-account-key"></i>
-                                                <span class="hide-menu">Administradores</span>
-                                            </a>
-                                        @endif
-
                                     </li>
                                 </ul>
                             </li>
-                        @endif --}}
+                        @endif
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
