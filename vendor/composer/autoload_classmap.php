@@ -178,6 +178,7 @@ return array(
     'CreateRedatorAleatorioTable' => $baseDir . '/database/migrations/2022_04_08_225837_create_redator_aleatorio_table.php',
     'CreateReferenciasMateriasTable' => $baseDir . '/database/migrations/2022_04_11_235209_create_referencias_materias_table.php',
     'CreateReferenciasTemasTable' => $baseDir . '/database/migrations/2022_04_20_234929_create_referencias_temas_table.php',
+    'CreateRelatorioRedator' => $baseDir . '/database/migrations/2022_11_24_110140_create_relatorio_redator.php',
     'CreateSolicitacoesSaquesTable' => $baseDir . '/database/migrations/2022_04_13_011805_create_solicitacoes_saques_table.php',
     'CreateTemasTable' => $baseDir . '/database/migrations/2022_04_07_175556_create_temas_table.php',
     'CreateTemasWordpressTable' => $baseDir . '/database/migrations/2022_04_24_014716_create_temas_wordpress_table.php',
