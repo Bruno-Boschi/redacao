@@ -485,7 +485,7 @@
                                 <ul aria-expanded="false" class="collapse  first-level">
                                     <li class="sidebar-item">
                                         @if (Auth::user()->departamento_id != 2)
-                                            <a href="/relatorios" class="sidebar-link">
+                                            <a href="/relatorios/redatores" class="sidebar-link">
                                                 <i class="mdi mdi-chart-line"></i>
                                                 <span class="hide-menu">Redatores </span>
                                             </a>
