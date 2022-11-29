@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Configuracoes;
 
 use Illuminate\Http\Request;
@@ -13,17 +14,18 @@ class ConfiguracoesController extends Controller
      *
      * @return void
      */
-    public function __construct(Request $request, Factory $validator) {
+    public function __construct(Request $request, Factory $validator)
+    {
         $this->request = $request;
         $this->validator = $validator;
         $this->middleware('auth');
     }
-    
+
     public function show($id)
     {
         //
     }
-    
+
     public function getIndex()
     {
         $configuracoes = Configuracoes::find(1);
@@ -36,13 +38,13 @@ class ConfiguracoesController extends Controller
         if (!empty($request)) {
             $valorMinimo = str_replace('.', '', $request['valor_minimo']);
             $valorMinimo = str_replace(',', '.', $valorMinimo);
-            
-            $valorMateria = str_replace('.', '', $request['valor_materia']);
-            $valorMateria = str_replace(',', '.', $valorMateria);
+
+            // $valorMateria = str_replace('.', '', $request['valor_materia']);
+            // $valorMateria = str_replace(',', '.', $valorMateria);
 
             $configuracao = Configuracoes::find($request['id']);
             $configuracao->valor_minimo = $valorMinimo;
-            $configuracao->valor_materia = $valorMateria;
+            // $configuracao->valor_materia = $valorMateria;
             $configuracao->regras_pagamento = $request['descricao'];
             $configuracao->usuario_sms = $request['usuario_sms'];
             $configuracao->senha_sms = $request['senha_sms'];
@@ -51,7 +53,7 @@ class ConfiguracoesController extends Controller
 
             return redirect('configuracoes')->with('mensagem', 'Configuração alterada com sucesso.');
         }
-        
+
         return view('configuracoes');
     }
 }
