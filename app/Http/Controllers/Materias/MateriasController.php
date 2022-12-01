@@ -19,6 +19,7 @@ use App\Helpers\CentralNotificacao;
 use App\Models\CentralNotificacoes\CentralNotificacoes;
 use App\Models\Dominios\TemasWordpress;
 use App\Models\Materias\RedatorAleatorio;
+use App\User;
 use Illuminate\Support\Facades\Mail;
 
 class MateriasController extends Controller
@@ -103,20 +104,20 @@ class MateriasController extends Controller
         $searchValue = $search_arr['value']; // Search value
 
         if ($somenteRevisao) {
-            $totalRecords = Materias::where('status', '=', Materias::CODIGO_STATUS_AGUARDANDO_AVALIACAO)
+            $totalRecords = Materias::where('status', '!=', 3)
                 ->where('leilao', 0)
                 ->select('count(*) as allcount')
                 ->count();
             $totalRecordswithFilter = Materias::select('count(*) as allcount')
                 ->where('assunto', 'like', '%' . $searchValue . '%')
                 ->where('leilao', 0)
-                ->where('status', '=', Materias::CODIGO_STATUS_AGUARDANDO_AVALIACAO)
+                ->where('status', '!=', 3)
                 ->count();
 
             // Fetch records
             $records = Materias::orderBy($columnName, $columnSortOrder)
                 ->where('assunto', 'like', '%' . $searchValue . '%')
-                ->where('materias.status', '=', Materias::CODIGO_STATUS_AGUARDANDO_AVALIACAO)
+                ->where('status', '!=', 3)
                 ->where('leilao', 0)
                 ->select('materias.*', 'users.name', 'temas.descricao as tema',  'users.tipo_redator as user_redator', 'dominios.dominio as url')
                 ->leftJoin('dominios', 'dominios.id', '=', 'materias.id_dominio')
@@ -127,18 +128,23 @@ class MateriasController extends Controller
                 ->get();
         } else {
             // Total records
-            $totalRecords = Materias::select('count(*) as allcount')->count();
-            $totalRecordswithFilter = Materias::select('count(*) as allcount')
+            $totalRecords = Materias::where('status', 3)
+                ->select('count(*) as allcount')
+                ->count();
+            $totalRecordswithFilter = Materias::where('status', 3)
                 ->where('assunto', 'like', '%' . $searchValue . '%')
+                ->select('count(*) as allcount')
                 ->count();
 
             // Fetch records
             $records = Materias::orderBy($columnName, $columnSortOrder)
+                ->where('status', 3)
                 ->where('assunto', 'like', '%' . $searchValue . '%')
                 ->select('materias.*', 'users.name', 'temas.descricao as tema', 'users.tipo_redator as user_redator', 'dominios.dominio as url')
                 ->leftJoin('dominios', 'dominios.id', '=', 'materias.id_dominio')
                 ->leftJoin('temas', 'temas.id', '=', 'materias.tema_id')
                 ->leftJoin('users', 'users.id', '=', 'materias.usuario_id')
+                ->orderBy('created_at')
                 ->skip($start)
                 ->take($rowperpage)
                 ->get();
@@ -190,6 +196,7 @@ class MateriasController extends Controller
 
     public function postSalvar(Request $request)
     {
+
         if (!empty($request)) {
             if (isset($request['id'])) {
                 $materia = Materias::find($request['id']);
@@ -244,6 +251,13 @@ class MateriasController extends Controller
                     $referenciaMateria->tema_id = $materia->tema_id;
                     $referenciaMateria->save();
                 }
+            }
+
+            if (isset($request['usuario_cadastro_id'])) {
+
+                    $solicitante = User::find($request['usuario_cadastro_id']);
+                    
+                    Mail::send(new \App\Mail\solicitanteMaterias($solicitante));
             }
 
             return redirect('materias/minhas-materias')->with('mensagem', $mensagem);
@@ -474,6 +488,7 @@ class MateriasController extends Controller
 
             if (!isset($idCategoria[0]['id'])) {
                 $categoria = Temas::find($tema_id);
+                // \dd($categoria);
                 $idCategoriaWordPress = ImportadorDadosWordPress::cadastrarCategoriaWordPress($categoria->descricao, $request['dominio_id'], $tema_id);
             } else {
                 $idCategoriaWordPress = $idCategoria[0]['id_categoria_wordpress'];

@@ -15,6 +15,7 @@ use App\Models\CentralNotificacoes\CentralNotificacoes;
 use App\Helpers\FormataData;
 use Carbon\Carbon;
 use App\Models\Dominios\Dominios;
+use Illuminate\Support\Facades\Mail;
 
 class FinanceirosController extends Controller
 {
@@ -258,6 +259,12 @@ class FinanceirosController extends Controller
             $solicitacaoSaque->usuario_id = Auth::user()->id;
             $solicitacaoSaque->status = SolicitacoesSaques::CODIGO_PAGAMENTO_PENDENTE;
             $solicitacaoSaque->save();
+
+                $financeiros = User::where('departamento_id', 2)->where('ativo','!=', 0)->get();
+                $user = User::where('id',$solicitacaoSaque->usuario_id)->first();
+                foreach ($financeiros as $financeiro) {
+                 Mail::send( new \App\Mail\solicitarPag($financeiro, $user));
+                }
 
             return redirect('financeiros')->with('mensagem', 'Pagamento solicitado com sucesso.');
         }

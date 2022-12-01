@@ -224,7 +224,7 @@
                                         <li class="sidebar-item">
                                             <a href="/materias" class="sidebar-link">
                                                 <i class="mdi mdi-pencil"></i>
-                                                <span class="hide-menu"> Matérias</span>
+                                                <span class="hide-menu"> Matérias Publicadas</span>
                                             </a>
                                         </li>
                                         <li class="sidebar-item">
@@ -277,7 +277,7 @@
                                         <li class="sidebar-item">
                                             <a href="/temas/redator-aleatorio" class="sidebar-link">
                                                 <i class="mdi mdi-account"></i>
-                                                <span class="hide-menu"> Redator Aleatório</span>
+                                                <span class="hide-menu"> Solicitações de Matérias</span>
                                             </a>
                                         </li>
                                         <li class="sidebar-item">

@@ -30,6 +30,6 @@ class CreateRelatorioRedatores extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('relatorio_redator');
+        Schema::dropIfExists('relatorio_redatores');
     }
 }

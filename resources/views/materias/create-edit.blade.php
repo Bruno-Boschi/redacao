@@ -29,6 +29,7 @@
                     {!! csrf_field() !!}
                     @if (isset($solicitacao))
                         <input type="hidden" name="preco_materia" value="{{ $solicitacao->preco_materia }}">
+                        <input type="hidden" name="usuario_cadastro_id" value="{{ $solicitacao->usuario_cadastro_id }}">
                         <input type="hidden" class="form-control" name="solicitacaoId" id="solicitacaoId"
                             value="{{ $solicitacao->id }}">
                     @endif

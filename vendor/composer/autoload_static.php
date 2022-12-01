@@ -94,6 +94,7 @@ class ComposerStaticInit3f7ba606f3df7ecf690971e3b8bd9628
             'Prophecy\\' => 9,
             'PhpParser\\' => 10,
             'PhpOption\\' => 10,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'O' => 
         array (
@@ -325,6 +326,10 @@ class ComposerStaticInit3f7ba606f3df7ecf690971e3b8bd9628
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
         ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
         'Opis\\Closure\\' => 
         array (
             0 => __DIR__ . '/..' . '/opis/closure/src',
@@ -503,6 +508,7 @@ class ComposerStaticInit3f7ba606f3df7ecf690971e3b8bd9628
         'App\\Models\\Materias\\ReferenciasMaterias' => __DIR__ . '/../..' . '/app/Models/Materias/ReferenciasMaterias.php',
         'App\\Models\\Materias\\ReferenciasTemas' => __DIR__ . '/../..' . '/app/Models/Materias/ReferenciasTemas.php',
         'App\\Models\\Materias\\Temas' => __DIR__ . '/../..' . '/app/Models/Materias/Temas.php',
+        'App\\Models\\Relatorios\\RelatorioRedatores' => __DIR__ . '/../..' . '/app/Models/Relatorios/RelatorioRedatores.php',
         'App\\Models\\Suportes\\ChamadoDetalhes' => __DIR__ . '/../..' . '/app/Models/Suportes/ChamadoDetalhes.php',
         'App\\Models\\Suportes\\Chamados' => __DIR__ . '/../..' . '/app/Models/Suportes/Chamados.php',
         'App\\Models\\TiposRedatores\\TipoRedator' => __DIR__ . '/../..' . '/app/Models/TiposRedatores/TipoRedator.php',
@@ -613,7 +619,7 @@ class ComposerStaticInit3f7ba606f3df7ecf690971e3b8bd9628
         'CreateRedatorAleatorioTable' => __DIR__ . '/../..' . '/database/migrations/2022_04_08_225837_create_redator_aleatorio_table.php',
         'CreateReferenciasMateriasTable' => __DIR__ . '/../..' . '/database/migrations/2022_04_11_235209_create_referencias_materias_table.php',
         'CreateReferenciasTemasTable' => __DIR__ . '/../..' . '/database/migrations/2022_04_20_234929_create_referencias_temas_table.php',
-        'CreateRelatorioRedator' => __DIR__ . '/../..' . '/database/migrations/2022_11_24_110140_create_relatorio_redator.php',
+        'CreateRelatorioRedatores' => __DIR__ . '/../..' . '/database/migrations/2022_11_24_110140_create_relatorio_redatores.php',
         'CreateSolicitacoesSaquesTable' => __DIR__ . '/../..' . '/database/migrations/2022_04_13_011805_create_solicitacoes_saques_table.php',
         'CreateTemasTable' => __DIR__ . '/../..' . '/database/migrations/2022_04_07_175556_create_temas_table.php',
         'CreateTemasWordpressTable' => __DIR__ . '/../..' . '/database/migrations/2022_04_24_014716_create_temas_wordpress_table.php',
@@ -2591,6 +2597,12 @@ class ComposerStaticInit3f7ba606f3df7ecf690971e3b8bd9628
         'Opis\\Closure\\SecurityProvider' => __DIR__ . '/..' . '/opis/closure/src/SecurityProvider.php',
         'Opis\\Closure\\SelfReference' => __DIR__ . '/..' . '/opis/closure/src/SelfReference.php',
         'Opis\\Closure\\SerializableClosure' => __DIR__ . '/..' . '/opis/closure/src/SerializableClosure.php',
+        'PHPMailer\\PHPMailer\\Exception' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/Exception.php',
+        'PHPMailer\\PHPMailer\\OAuth' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/OAuth.php',
+        'PHPMailer\\PHPMailer\\OAuthTokenProvider' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/OAuthTokenProvider.php',
+        'PHPMailer\\PHPMailer\\PHPMailer' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/PHPMailer.php',
+        'PHPMailer\\PHPMailer\\POP3' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/POP3.php',
+        'PHPMailer\\PHPMailer\\SMTP' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/SMTP.php',
         'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/Assert.php',
         'PHPUnit\\Framework\\AssertionFailedError' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/AssertionFailedError.php',
         'PHPUnit\\Framework\\BaseTestListener' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/BaseTestListener.php',

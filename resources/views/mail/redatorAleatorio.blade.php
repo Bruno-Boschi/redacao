@@ -1,7 +1,7 @@
 @component('mail::message')
-<h1>Caro Redator {{ $materia->usuario_name }}</h1>
-<p> Sua materia <b>"{{ $materia->assunto}}"</b> foi Reprovada  </p>
-<p>Por favor verifique o sistema</p>
+<h1>Ola </h1>
+<p> Existem artigos em aberto.</p>
+<p> Gostaria de aceita-los? Entre no sistema e verifique.</p>
 <br/>
 <br/>
 <br/>
