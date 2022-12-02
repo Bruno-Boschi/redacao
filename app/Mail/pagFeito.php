@@ -16,9 +16,10 @@ class pagFeito extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user)
     {
         //
+           $this->user = $user ; 
     }
 
     /**
@@ -28,6 +29,10 @@ class pagFeito extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+         $this->subject('Pagamento Realizado');
+        $this->to($this->user->email, $this->user->name);
+        return $this->markdown('mail.pagFeito', [
+            'user' => $this->user,
+        ]);
     }
 }

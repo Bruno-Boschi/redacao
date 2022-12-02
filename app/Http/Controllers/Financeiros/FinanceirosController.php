@@ -323,6 +323,9 @@ class FinanceirosController extends Controller
         
         CentralNotificacao::salvarNotificaoUsuario($usuario, $mensagem, CentralNotificacoes::MODULO_FINANCEIRO);
 
+         $user = User::find($usuario);
+        
+        Mail::send(new \App\Mail\pagFeito($user));
         echo json_encode(array('status' => 1));
         exit;
     }
