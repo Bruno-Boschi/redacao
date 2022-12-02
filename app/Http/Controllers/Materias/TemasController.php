@@ -14,6 +14,7 @@ use App\Models\Configuracoes\Configuracoes;
 use App\Models\Materias\ReferenciasTemas;
 use App\Models\Materias\Materias;
 use App\Models\Materias\ReferenciasMaterias;
+use Illuminate\Support\Facades\Mail;
 
 class TemasController extends Controller
 {
@@ -292,8 +293,11 @@ class TemasController extends Controller
     public function postSalvarRedatorAleatorio()
     {
         $request = $this->request->all();
-        $redatorSelecionado = (!isset($request['redator'])) ? $this->proximoUsuarioCadastrarTema(0) :
-            $request['redator'];
+        
+        // $redatorSelecionado = (!isset($request['redator'])) ? $this->proximoUsuarioCadastrarTema(0) :
+        //     $request['redator'];
+        $redatorSelecionado = ($request['redator']) ? $request['redator'] : 0;
+
         if (isset($request['preco_materia'])) {
             $numero = str_replace('.', '', $request['preco_materia']);
             $numero = str_replace(',', '.', $numero);
@@ -326,14 +330,23 @@ class TemasController extends Controller
             }
         }
 
-        return redirect('temas/redator-aleatorio')->with('mensagem', 'Redator Aleatório cadastrado com sucesso.');
+        if ($redatorSelecionado != 0) {
+            $user = User::where('tipo_usuario', 'R')
+                ->where('id', $redatorSelecionado)
+                ->where('ativo', 1)
+                ->first();
+
+            Mail::send(new \App\Mail\redatorEspecifico($user));
+        }
+
+        return redirect('temas/redator-aleatorio')->with('mensagem', 'Solicitação cadastrada com sucesso.');
     }
 
     public function getExcluirRedator($id)
     {
         $tema = RedatorAleatorio::find($id);
         $tema->delete();
-        return redirect('temas/redator-aleatorio')->with('mensagem', 'Redator Aleatório excluido com sucesso.');
+        return redirect('temas/redator-aleatorio')->with('mensagem', 'Solicitação excluida com sucesso.');
     }
 
     public function getAssuntoAleatorio($id)

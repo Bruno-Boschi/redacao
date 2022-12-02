@@ -79,8 +79,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <small class="text-muted">Comprovante Pagamento:</small>
-                            <input type="file" class="form-control" data-name="comprovante" name="comprovante_pagamento" id="comprovante_pagamento">
-                            <input type="hidden" id="comprovante" name="comprovante" class="form-control" value="">
+                            <input type="file" required class="form-control" data-name="comprovante" name="comprovante_pagamento" id="comprovante_pagamento">
+                            <input type="hidden"  id="comprovante" name="comprovante" class="form-control" value="">
                         </div>
                     </div>
                     <div class="row descricao_reprovacao" style="display:none;">
@@ -101,7 +101,7 @@
                         </div>
                         <div class="col-md-6">
                             <input type="hidden" id="id_solicitacao" value="">
-                            <button type="button" class="btn btn-info" id="salvar_dados">Salvar</button>
+                            <button type="button" class="btn btn-info " id="salvar_dados">Salvar</button>
                         </div>
                     </div>
                 </div>
