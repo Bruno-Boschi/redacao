@@ -253,4 +253,33 @@ class ImportadorDadosWordPress
 
         return $dado->id;
     }
+
+    public static function urlPostWordPress($idDominio, $id_wordpress)
+    {
+
+        
+        $dadosDominio = Dominios::find($idDominio);
+      
+        $dominio = $dadosDominio->dominio;
+        $ultimoCaracter = substr($dominio, -1, 1);
+        $dominio = ($ultimoCaracter != '/') ? $dominio . '/' : $dominio . '';
+       
+            $ch = curl_init();
+           $url = $dominio . '/wp-json/wp/v2/posts/' . $id_wordpress;
+
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+
+            $response = curl_exec($ch);
+
+
+        curl_close($ch);
+        $dado = json_decode($response);
+
+
+
+        return ($dado->link) ? $dado->link : 'Nao encontrado';
+    }
 }

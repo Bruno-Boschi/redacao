@@ -658,11 +658,10 @@ class MateriasController extends Controller
             header('Content-Type: application/csv');
             header('Content-Disposition: attachment; filename="materias' . $date->format('d-m-Y') . '.csv";');
 
-            $columns = array('ID', 'Site', 'URL', 'Titulo');
+            $columns = array('ID', 'Site', 'URL', 'Titulo', 'ID_Usuario', 'Nome Usuario');
 
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
-
             $records = Materias::orderBy('materias.id', 'ASC')
                 ->when($request['data_inicio'], function ($query, $data_inicio) {
                     $query->where('materias.created_at', '>=', $data_inicio);
@@ -683,20 +682,21 @@ class MateriasController extends Controller
                 ->get();
 
 
-
-
             foreach ($records as $task) {
+
                 $row['ID'] = $task->id_wordpress;
                 $row['Site'] = $task->dominio;
-                $row['URL'] = $task->dominio . '?p=' . $task->id_wordpress;
+                $row['URL'] = ImportadorDadosWordPress::urlPostWordPress($task->id_dominio , $task->id_wordpress);
                 $row['Titulo'] = utf8_decode($task->assunto);
+                $row['ID_Usuario'] = utf8_decode($task->usuario_id);
+                $row['Nome Usuario'] = utf8_decode($task->name);
 
                 $materia = Materias::find($task->id);
                 $materia->exported = 1;
                 $materia->save();
 
 
-                fputcsv($file, array($row['ID'], $row['Site'], $row['URL'], $row['Titulo']), ';');
+                fputcsv($file, array($row['ID'], $row['Site'], $row['URL'], $row['Titulo'],  $row['ID_Usuario'], $row['Nome Usuario']), ';');
             }
             fclose($file);
 
