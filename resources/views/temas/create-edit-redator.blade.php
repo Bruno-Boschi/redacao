@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="col-md-3 ">
                                     <label class="text-muted">Quantidade de palavras:</label><br>
-                                    <select class="form-control" id="qtd_palavras" name="qtd_palavras">
+                                    <select class="form-control postPalavras" id="qtd_palavras" name="qtd_palavras">
                                         <option value="">
                                         </option>
                                         <option value="200">200 palavras</option>
@@ -78,21 +78,34 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <label class="text-muted">Redator:</label><br>
-                                    <select class="form-control postName" id="redator" name="redator"></select>
-                                </div>
-                                <div class="col-md-3 ">
-                                    <label class="text-muted">Categoria:</label><br>
-                                    <select required class="form-control postTema" id="tema" name="tema">
-                                        {{-- <option value=""></option>
-                                        @foreach ($temas as $tema)
-                                            <option value="{{ $tema['id'] }}">{{ $tema['descricao'] }}</option>
-                                        @endforeach --}}
+                                    <select class="form-control postName" onchange="ocultar()" id="redator"
+                                        name="redator">
+                                        <option value="0"> Aleatório </option>
+                                        <optgroup label="CLT">
+                                            @foreach ($redatores_clts as $redator_clt)
+                                                <option value="{{ $redator_clt->id }}">{{ $redator_clt->name }}</option>
+                                            @endforeach
+                                        </optgroup>
+                                        <optgroup label="PJ">
+                                            @foreach ($redatores_pjs as $redator_pj)
+                                                <option value="{{ $redator_pj->id }}">{{ $redator_pj->name }}</option>
+                                            @endforeach
+                                        </optgroup>
                                     </select>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3 " id="categoria">
+                                    <label class="text-muted">Categoria:</label><br>
+                                    <select required class="form-control postTema" id="tema" name="tema">
+                                        <option value=""></option>
+                                        @foreach ($temas as $tema)
+                                            <option value="{{ $tema['id'] }}">{{ $tema['descricao'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-6" id="valorMateria">
                                     <label class="text-muted">Preço</label>
                                     <input required type="text" class="form-control maskMoney-inputmask"
-                                        placeholder="Valor" name="preco_materia" value="">
+                                        id="preco_materia" placeholder="Valor" name="preco_materia" value="">
                                 </div>
                             </div>
                             <div class="row">
@@ -193,6 +206,34 @@
             affixesStay: false,
             prefix: "R$ ",
         });
+
+        function ocultar() {
+            var redator = document.getElementById("redator").value;
+            if (redator == 0) {
+                document.getElementById("valorMateria").style.display = "block";
+                document.getElementById("valorMateria").setAttribute("required", "required");
+            }
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "/temas/verificar/" + redator,
+                success: function(result) {
+                    if (result == 'PJ') {
+                        document.getElementById("valorMateria").style.display = "block";
+                        document.getElementById("valorMateria").setAttribute("required", "required");
+                    } else {
+                        document.getElementById("valorMateria").style.display = "none";
+                        document.getElementById("valorMateria").removeAttribute("required");
+
+                    }
+                },
+            });
+        }
     </script>
     @foreach ($temaReferencias as $temaReferencia)
         <script>

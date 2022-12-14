@@ -100,6 +100,8 @@ class TemasController extends Controller
     public function getCreateEdit($id = 0)
     {
         $tema = Temas::find($id);
+
+
         return view('temas/create-edit', compact('tema'));
     }
 
@@ -153,15 +155,19 @@ class TemasController extends Controller
 
     public function getCreateEditRedator($id = 0)
     {
-        // $temas = Temas::orderBy('descricao', 'ASC')->get();
+        $temas = Temas::orderBy('descricao', 'ASC')->get();
 
 
         $temaReferencias = ReferenciasTemas::where('tema_id', '=', $id)->get();
 
         $redatorAleatorio = RedatorAleatorio::find($id);
 
+        $redatores_clts = User::where('tipo_usuario', 'R')->where('tipo_redator', 'CLT')->where('ativo', '1')->get();
+        $redatores_pjs = User::where('tipo_usuario', 'R')->where('tipo_redator', 'PJ')->where('ativo', '1')->get();
+
+
         // $referencias = ReferenciasMaterias::orderBy('titulo', 'ASC')->get();
-        return view('temas/create-edit-redator', compact('temaReferencias', 'redatorAleatorio'));
+        return view('temas/create-edit-redator', compact('temaReferencias', 'redatorAleatorio', 'redatores_clts', 'redatores_pjs', 'temas'));
     }
 
     private function dadosRedatorAleatorio($request)
@@ -293,7 +299,7 @@ class TemasController extends Controller
     public function postSalvarRedatorAleatorio()
     {
         $request = $this->request->all();
-        
+
         // $redatorSelecionado = (!isset($request['redator'])) ? $this->proximoUsuarioCadastrarTema(0) :
         //     $request['redator'];
         $redatorSelecionado = ($request['redator']) ? $request['redator'] : 0;
@@ -480,5 +486,12 @@ class TemasController extends Controller
         }
 
         return $usuario->id;
+    }
+
+    public function getVerificar($id)
+    {
+        $redator = User::find($id);
+
+        return $redator->tipo_redator;
     }
 }
