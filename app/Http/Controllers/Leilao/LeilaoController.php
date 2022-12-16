@@ -77,11 +77,13 @@ class LeilaoController extends Controller
             $tema = !empty($record->tema) ? $record->tema : 'Não Informado';
             $usuario = !empty($record->name) ? $record->name : 'Admin';
             $data_arr[] = array(
+                "id" => $record->id,
                 "imagem_principal" => '<div ><img width="70"  src="' . $caminho . '"></div>',
                 "assunto" => $record->assunto,
                 "name" => $usuario . ' - ' . $record->user_redator,
                 "idioma" => $record->idioma,
                 "valor_post" => $record->valor_post,
+                "created_at" => $record->created_at->format('d/m/Y'),
                 "status" => $status,
                 "options" => '<div class="m-icon"><a href="/materias/visualizar-materia/' . $record->id . '" title="Visualizar"><i class="me-2 mdi mdi-pencil-box-outline"></i></a></div>'
             );

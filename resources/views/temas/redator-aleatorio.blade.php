@@ -43,10 +43,12 @@
                             <table id="zero_config" class="table table-striped table-bordered" width="100%">
                                 <thead>
                                     <tr>
+                                        <th>id</th>
                                         <th>Assunto</th>
                                         <th>Redador</th>
                                         <th>Categoria</th>
                                         <th>Idioma</th>
+                                        <th>Data</th>
                                         <th>Status</th>
                                         <th></th>
                                     </tr>

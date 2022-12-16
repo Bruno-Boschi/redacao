@@ -11,10 +11,12 @@ $(document).ready(function () {
       url: "/temas/redator-aleatorio",
     },
     columns: [
+      { data: "id" },
       { data: "assunto" },
       { data: "redator" },
       { data: "descricao" },
       { data: "idioma" },
+      { data: "created_at" },
       { data: "status" },
       {
         data: "options",

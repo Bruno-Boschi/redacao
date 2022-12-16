@@ -36,6 +36,24 @@ $(document).ready(function () {
     placeholder: "Selecione a Quantidade de palavras",
   });
 
+  function formatState(state) {
+    if (!state.id) {
+      return state.text;
+    }
+
+    var $state = $("<span > <span  style='color:black'></span></span>");
+
+    // Use .text() instead of HTML string concatenation to avoid script injection issues
+    $state.find("span").text(state.text);
+
+    return $state;
+  }
+
+  $(".postIdiomas").select2({
+    placeholder: "Selecione Idiomas",
+    templateSelection: formatState,
+  });
+
   $(".postDominio").select2({
     placeholder: "Selecione Matéria",
     minimumInputLength: 3,

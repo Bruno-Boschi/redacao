@@ -162,12 +162,14 @@ class MateriasController extends Controller
             $tema = !empty($record->tema) ? $record->tema : 'Não Informado';
             $usuario = !empty($record->name) ? $record->name : 'Admin';
             $data_arr[] = array(
+                "id" => $record->id,
                 "imagem_principal" => '<div ><img width="70"  src="' . $caminho . '"></div>',
                 "assunto" => $record->assunto,
                 "tema" => $tema,
                 "name" => $usuario . ' - ' . $record->user_redator,
                 "url" => $record->url,
                 "idioma" => $record->idioma,
+                "created_at" => $record->created_at->format('d/m/Y'),
                 "status" => $status,
                 "options" => '<div class="m-icon"><a href="/materias/visualizar-materia/' . $record->id . '" title="Visualizar"><i class="me-2 mdi mdi-pencil-box-outline"></i></a></div>'
             );
@@ -255,9 +257,9 @@ class MateriasController extends Controller
 
             if (isset($request['usuario_cadastro_id'])) {
 
-                    $solicitante = User::find($request['usuario_cadastro_id']);
-                    
-                    Mail::send(new \App\Mail\solicitanteMaterias($solicitante));
+                $solicitante = User::find($request['usuario_cadastro_id']);
+
+                Mail::send(new \App\Mail\solicitanteMaterias($solicitante));
             }
 
             return redirect('materias/minhas-materias')->with('mensagem', $mensagem);
@@ -686,7 +688,7 @@ class MateriasController extends Controller
 
                 $row['ID'] = $task->id_wordpress;
                 $row['Site'] = $task->dominio;
-                $row['URL'] = ImportadorDadosWordPress::urlPostWordPress($task->id_dominio , $task->id_wordpress);
+                $row['URL'] = ImportadorDadosWordPress::urlPostWordPress($task->id_dominio, $task->id_wordpress);
                 $row['Titulo'] = utf8_decode($task->assunto);
                 $row['ID_Usuario'] = utf8_decode($task->usuario_id);
                 $row['Nome Usuario'] = utf8_decode($task->name);

@@ -208,10 +208,12 @@ class TemasController extends Controller
         foreach ($records as $record) {
             $status = RedatorAleatorio::STATUS_ASSUNTO[$record->status];
             $data_arr[] = array(
+                "id" => $record->id,
                 "assunto" => $record->assunto,
                 "redator" => $record->name,
                 "descricao" => $record->descricao,
                 "idioma" => $record->idioma,
+                "created_at" => $record->created_at->format('d/m/Y'),
                 "status" => $status,
                 "options" => '<div class="m-icon"><a href="/temas/excluir-redator/' . $record->id . '" title="Excluir"><i class="me-2 mdi mdi-delete"></i></a></div>'
             );
@@ -299,6 +301,12 @@ class TemasController extends Controller
     public function postSalvarRedatorAleatorio()
     {
         $request = $this->request->all();
+        $idioma_array = $request['idioma'];
+        $idioma_string = implode(", ", $idioma_array);
+
+
+
+
 
         // $redatorSelecionado = (!isset($request['redator'])) ? $this->proximoUsuarioCadastrarTema(0) :
         //     $request['redator'];
@@ -313,7 +321,7 @@ class TemasController extends Controller
 
         $assunto = new RedatorAleatorio;
         $assunto->assunto = $request['assunto'];
-        $assunto->idioma = $request['idioma'];
+        $assunto->idioma = $idioma_string;
         $assunto->qtd_palavras = $request['qtd_palavras'];
         $assunto->preco_materia = $numero;
         $assunto->descricao = $request['descricao_assunto'];

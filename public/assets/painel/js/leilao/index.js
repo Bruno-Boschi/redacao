@@ -11,6 +11,7 @@ $(document).ready(function () {
       url: "/leilao-materias",
     },
     columns: [
+      { data: "id" },
       {
         data: "imagem_principal",
         name: "imagem",
@@ -21,6 +22,7 @@ $(document).ready(function () {
       { data: "name" },
       { data: "idioma" },
       { data: "valor_post" },
+      { data: "created_at" },
       { data: "status" },
       {
         data: "options",

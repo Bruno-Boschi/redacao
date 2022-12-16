@@ -114,12 +114,20 @@ class DashboardController extends Controller
                 ->count();
 
             $rankingRedatores = DadosRedatores::rankingRedatores();
+
+            $solicitacoes = RedatorAleatorio::leftJoin('users', 'users.id', '=', 'redator_aleatorio.usuario_id')
+                ->leftJoin('temas', 'temas.id', '=', 'redator_aleatorio.tema_id')
+                ->select('redator_aleatorio.*', 'users.name as usuario_nome', 'temas.descricao as temas_descricao')
+                ->get();
+
+
             return view('dashboard/dashboard-admin', compact(
                 'ultimosChamados',
                 'totalFechados',
                 'totalAberto',
                 'totalChamados',
-                'rankingRedatores'
+                'rankingRedatores',
+                'solicitacoes'
             ));
         }
     }

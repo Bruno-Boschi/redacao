@@ -36,7 +36,14 @@
                                 </div>
                                 <div class="col-md-3 ">
                                     <label class="text-muted">Idioma:</label><br>
-                                    <input required class="form-control" id="idioma" name="idioma" value="">
+                                    <select class=" postIdiomas" id="idioma" name="idioma[]" multiple="multiple">
+                                        <option value="Portugues">Portugues</option>
+                                        <option value="Italiano">Italiano</option>
+                                        <option value="Espanhol">Espanhol</option>
+                                        <option value="Frances">Frances</option>
+                                        <option value="Ingles">Ingles</option>
+                                    </select>
+
                                 </div>
                                 <div class="col-md-3 ">
                                     <label class="text-muted">Quantidade de palavras:</label><br>
@@ -225,10 +232,10 @@
                 success: function(result) {
                     if (result == 'PJ') {
                         document.getElementById("valorMateria").style.display = "block";
-                        document.getElementById("valorMateria").setAttribute("required", "required");
+                        document.getElementById("preco_materia").setAttribute("required", "required");
                     } else {
                         document.getElementById("valorMateria").style.display = "none";
-                        document.getElementById("valorMateria").removeAttribute("required");
+                        document.getElementById("preco_materia").removeAttribute("required");
 
                     }
                 },
