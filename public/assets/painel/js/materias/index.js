@@ -16,15 +16,15 @@ $(document).ready(function () {
         data: "imagem_principal",
         name: "imagem",
         orderable: false,
-        searchable: true,
+
       },
-      { data: "assunto" },
-      { data: "name" },
-      { data: "url" },
-      { data: "tema" },
-      { data: "idioma" },
+      { data: "assunto" , orderable: false, },
+      { data: "name" , orderable: false, },
+      { data: "url" , orderable: false, },
+      { data: "tema" , orderable: false, },
+      { data: "idioma" , orderable: false, },
       { data: "created_at" },
-      { data: "status" },
+      { data: "status" , orderable: false,},
       {
         data: "options",
         name: "options",
@@ -32,5 +32,6 @@ $(document).ready(function () {
         searchable: true,
       },
     ],
+          order: [[7,'desc']],
   });
 });
