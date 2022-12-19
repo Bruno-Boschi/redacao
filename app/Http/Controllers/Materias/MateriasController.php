@@ -191,6 +191,8 @@ class MateriasController extends Controller
         $solicitacao = RedatorAleatorio::find($idTema);
         if ($solicitacao) {
             $readOnly = 'readonly';
+        } else {
+            $readOnly = false;
         }
         $referencias = ReferenciasMaterias::where('materia_id', '=', $id)->get();
         $temas = Temas::all();
