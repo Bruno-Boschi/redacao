@@ -31,5 +31,6 @@ $(document).ready(function () {
         searchable: true,
       },
     ],
+     order: [[6,'desc'], [7,'desc']],
   });
 });
