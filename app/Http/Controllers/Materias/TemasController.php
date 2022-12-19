@@ -302,7 +302,45 @@ class TemasController extends Controller
     {
         $request = $this->request->all();
         $idioma_array = $request['idioma'];
-        $idioma_string = implode(", ", $idioma_array);
+        // $idioma_string = implode(", ", $idioma_array);
+        $redatorSelecionado = ($request['redator']) ? $request['redator'] : 0;
+        if (isset($request['preco_materia'])) {
+            $numero = str_replace('.', '', $request['preco_materia']);
+            $numero = str_replace(',', '.', $numero);
+            (int)$numero = (int)$numero / (count($idioma_array));
+        } else {
+            $numero = 0;
+        }
+
+        foreach ($idioma_array as $idioma) {
+
+
+
+            $assunto = new RedatorAleatorio;
+            $assunto->assunto = $request['assunto'] . " - ( Em " . $idioma . " )";
+            $assunto->idioma = $idioma;
+            $assunto->qtd_palavras = $request['qtd_palavras'];
+            $assunto->preco_materia = round($numero);
+            $assunto->descricao = $request['descricao_assunto'];
+            $assunto->usuario_id = $redatorSelecionado;
+            $assunto->status = 0;
+            $assunto->usuario_cadastro_id = Auth::user()->id;
+            $assunto->tema_id = $request['tema'];
+            $assunto->save();
+
+
+            if (isset($request['titulo'])) {
+                for ($i = 0; $i < count($request['titulo']); $i++) {
+                    $referencia = new ReferenciasTemas;
+                    $referencia->descricao = $request['descricao_referencia'][$i];
+                    $referencia->titulo = $request['titulo'][$i];
+                    $referencia->tema_id = $assunto->id;
+                    // $referencia->materia_id = ($request['materia'][$i] == 'null') ? 0 : $request['materia'][$i];
+                    $referencia->materia_id = 0;
+                    $referencia->save();
+                }
+            }
+        }
 
 
 
@@ -310,48 +348,17 @@ class TemasController extends Controller
 
         // $redatorSelecionado = (!isset($request['redator'])) ? $this->proximoUsuarioCadastrarTema(0) :
         //     $request['redator'];
-        $redatorSelecionado = ($request['redator']) ? $request['redator'] : 0;
-
-        if (isset($request['preco_materia'])) {
-            $numero = str_replace('.', '', $request['preco_materia']);
-            $numero = str_replace(',', '.', $numero);
-        } else {
-            $numero = 0;
-        }
-
-        $assunto = new RedatorAleatorio;
-        $assunto->assunto = $request['assunto'];
-        $assunto->idioma = $idioma_string;
-        $assunto->qtd_palavras = $request['qtd_palavras'];
-        $assunto->preco_materia = $numero;
-        $assunto->descricao = $request['descricao_assunto'];
-        $assunto->usuario_id = $redatorSelecionado;
-        $assunto->status = 0;
-        $assunto->usuario_cadastro_id = Auth::user()->id;
-        $assunto->tema_id = $request['tema'];
-        $assunto->save();
 
 
-        if (isset($request['titulo'])) {
-            for ($i = 0; $i < count($request['titulo']); $i++) {
-                $referencia = new ReferenciasTemas;
-                $referencia->descricao = $request['descricao_referencia'][$i];
-                $referencia->titulo = $request['titulo'][$i];
-                $referencia->tema_id = $assunto->id;
-                // $referencia->materia_id = ($request['materia'][$i] == 'null') ? 0 : $request['materia'][$i];
-                $referencia->materia_id = 0;
-                $referencia->save();
-            }
-        }
+        // regra email com redator
+        // if ($redatorSelecionado != 0) {
+        //     $user = User::where('tipo_usuario', 'R')
+        //         ->where('id', $redatorSelecionado)
+        //         ->where('ativo', 1)
+        //         ->first();
 
-        if ($redatorSelecionado != 0) {
-            $user = User::where('tipo_usuario', 'R')
-                ->where('id', $redatorSelecionado)
-                ->where('ativo', 1)
-                ->first();
-
-            Mail::send(new \App\Mail\redatorEspecifico($user));
-        }
+        //     Mail::send(new \App\Mail\redatorEspecifico($user));
+        // }
 
         return redirect('temas/redator-aleatorio')->with('mensagem', 'Solicitação cadastrada com sucesso.');
     }

@@ -189,11 +189,14 @@ class MateriasController extends Controller
     {
         $materia = Materias::find($id);
         $solicitacao = RedatorAleatorio::find($idTema);
+        if ($solicitacao) {
+            $readOnly = 'readonly';
+        }
         $referencias = ReferenciasMaterias::where('materia_id', '=', $id)->get();
         $temas = Temas::all();
         $temaReferencias = ReferenciasTemas::where('tema_id', '=', $idTema)->get();
 
-        return view('materias/create-edit', compact('materia', 'temas', 'referencias', 'temaReferencias',  'solicitacao'));
+        return view('materias/create-edit', compact('materia', 'temas', 'referencias', 'temaReferencias',  'solicitacao', 'readOnly'));
     }
 
     public function postSalvar(Request $request)

@@ -103,7 +103,7 @@
                                 <div class="col-md-3 " id="categoria">
                                     <label class="text-muted">Categoria:</label><br>
                                     <select required class="form-control postTema" id="tema" name="tema">
-                                        <option value=""></option>
+                                        <option value="0"> Sem categoria </option>
                                         @foreach ($temas as $tema)
                                             <option value="{{ $tema['id'] }}">{{ $tema['descricao'] }}</option>
                                         @endforeach

@@ -120,7 +120,6 @@ class DashboardController extends Controller
                 ->select('redator_aleatorio.*', 'users.name as usuario_nome', 'temas.descricao as temas_descricao')
                 ->get();
 
-
             return view('dashboard/dashboard-admin', compact(
                 'ultimosChamados',
                 'totalFechados',

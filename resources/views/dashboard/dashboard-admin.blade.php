@@ -142,8 +142,8 @@ use App\Models\Suportes\Chamados;
                                             @else
                                                 <th>Todos</th>
                                             @endif
-                                            @if (isset($solicitacao->tema_descricao))
-                                                <th>{{ $solicitacao->tema_descricao }}</th>
+                                            @if (isset($solicitacao->temas_descricao))
+                                                <th>{{ $solicitacao->temas_descricao }}</th>
                                             @else
                                                 <th>Não informado</th>
                                             @endif

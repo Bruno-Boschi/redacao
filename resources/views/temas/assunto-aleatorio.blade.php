@@ -26,45 +26,66 @@
                                 </div>
                             @endif
                         @endif
-                        <div class="col-12">
-                            <div class="card ">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between">
-                                        <div>
-                                            <input type="hidden" id="id_assunto" value="{{ $assunto[0]['id'] }}">
-                                            <input type="hidden" id="id_tema" value="{{ $assunto[0]['tema_id'] }}">
-                                            <h5 class="card-title">Tema: &nbsp;&nbsp;{{ $assunto[0]['assunto'] }}
-                                            </h5>
-                                            @if (isset($assunto[0]['tema']))
-                                                <h5 class="card-title">Categoria: &nbsp;&nbsp;{{ $assunto[0]['tema'] }}</h5>
-                                            @endif
-                                            <h5 class="card-title">Idioma: &nbsp;&nbsp;{{ $assunto[0]['idioma'] }}</h5>
-                                            <h5 class="card-title">Palavras: &nbsp;&nbsp;{{ $assunto[0]['qtd_palavras'] }}
-                                                @if (Auth::user()->tipo_redator == 'PJ')
-                                                    <h5 class="card-title">Preço:
-                                                        &nbsp;&nbsp;R$&nbsp;{{ $assunto[0]['preco_materia'] }}
-                                                    </h5>
-                                                @endif
-                                            </h5>
-                                            <p>
-                                                Descrição:<br>
-                                                <?php echo $assunto[0]['descricao']; ?>
-                                            </p>
-                                        </div>
-                                        @if ($assunto[0]['status'] == 3)
-                                            <?php $assuntoId = $assunto[0]['id']; ?>
-                                            <div class="mr-10 justify-content-between">
-                                                <a href="/materias/create-edit/0/{{ $assuntoId }}"
-                                                    class="btn btn-success text-white">Criar
-                                                    Matéria</a>
-                                            </div>
+
+                        <div class="card ">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <input type="hidden" id="id_assunto" value="{{ $assunto[0]['id'] }}">
+                                        <input type="hidden" id="id_tema" value="{{ $assunto[0]['tema_id'] }}">
+                                        <h5 class="card-title">Tema: &nbsp;&nbsp;{{ $assunto[0]['assunto'] }}
+                                        </h5>
+                                        @if (isset($assunto[0]['tema']))
+                                            <h5 class="card-title">Categoria: &nbsp;&nbsp;{{ $assunto[0]['tema'] }}</h5>
                                         @endif
+                                        <h5 class="card-title">Idioma: &nbsp;&nbsp;{{ $assunto[0]['idioma'] }}</h5>
+                                        <h5 class="card-title">Palavras: &nbsp;&nbsp;{{ $assunto[0]['qtd_palavras'] }}
+                                            @if (Auth::user()->tipo_redator == 'PJ')
+                                                <h5 class="card-title">Preço:
+                                                    &nbsp;&nbsp;R$&nbsp;{{ $assunto[0]['preco_materia'] }}
+                                                </h5>
+                                            @endif
+                                        </h5>
+                                        <p>
+                                            Descrição:<br>
+                                            <?php echo $assunto[0]['descricao']; ?>
+                                        </p>
                                     </div>
+                                    @if ($assunto[0]['status'] == 3)
+                                        <?php $assuntoId = $assunto[0]['id']; ?>
+                                        <div class="mr-10 justify-content-between">
+                                            <a href="/materias/create-edit/0/{{ $assuntoId }}"
+                                                class="btn btn-success text-white">Criar
+                                                Matéria</a>
+                                        </div>
+                                    @endif
 
                                 </div>
 
                             </div>
+                            @if ($assunto[0]['status'] == 1)
+                                <div class="row">
+                                    @if ($limiteRejeicoes > 0)
+                                        @if ($habilitaBotaoRejeitar)
+                                            <div class="col-1">
+                                                <button type="button" id="rejeitar_assunto"
+                                                    class="btn btn-danger text-white">Rejeitar</button>
+                                            </div>
+                                        @endif
+                                    @elseif ($assunto[0]['usuario_id'] != 0)
+                                        <div class="col-1">
+                                            <button type="button" id="rejeitar_assunto"
+                                                class="btn btn-danger text-white">Rejeitar</button>
+                                        </div>
+                                    @endif
+                                    <div class="col-1">
+                                        <button type="button" id="aceitar_assunto"
+                                            class="btn btn-success text-white">Aceitar</button>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
+
                     </div>
 
                     @if (isset($referencias[0]))
@@ -106,27 +127,7 @@
                         </div>
                         <br>
                     @endif
-                    @if ($assunto[0]['status'] == 1)
-                        <div class="row">
-                            @if ($limiteRejeicoes > 0)
-                                @if ($habilitaBotaoRejeitar)
-                                    <div class="col-1">
-                                        <button type="button" id="rejeitar_assunto"
-                                            class="btn btn-danger text-white">Rejeitar</button>
-                                    </div>
-                                @endif
-                            @elseif ($assunto[0]['usuario_id'] != 0)
-                                <div class="col-1">
-                                    <button type="button" id="rejeitar_assunto"
-                                        class="btn btn-danger text-white">Rejeitar</button>
-                                </div>
-                            @endif
-                            <div class="col-1">
-                                <button type="button" id="aceitar_assunto"
-                                    class="btn btn-success text-white">Aceitar</button>
-                            </div>
-                        </div>
-                    @endif
+
 
                 </div>
             </div>
