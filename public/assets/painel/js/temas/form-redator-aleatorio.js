@@ -7,25 +7,51 @@ CKEDITOR.editorConfig = function (config) {
 CKEDITOR.replace("descricao_assunto");
 
 $(document).ready(function () {
+  // $(".postName").select2({
+  //   placeholder: "Selecione Redator",
+  //   minimumInputLength: 3,
+  //   ajax: {
+  //     url: "/temas/redator",
+  //     dataType: "json",
+  //     delay: 250,
+  //     data: function (data) {
+  //       return {
+  //         searchTerm: data.term, // search term
+  //       };
+  //     },
+  //     processResults: function (response) {
+  //       return {
+  //         results: response,
+  //       };
+  //     },
+  //     cache: true,
+  //   },
+  // });
+
   $(".postName").select2({
-    placeholder: "Selecione Redator",
-    minimumInputLength: 3,
-    ajax: {
-      url: "/temas/redator",
-      dataType: "json",
-      delay: 250,
-      data: function (data) {
-        return {
-          searchTerm: data.term, // search term
-        };
-      },
-      processResults: function (response) {
-        return {
-          results: response,
-        };
-      },
-      cache: true,
-    },
+    placeholder: "Selecione a Redator",
+  });
+
+  $(".postPalavras").select2({
+    placeholder: "Selecione a Quantidade de palavras",
+  });
+
+  function formatState(state) {
+    if (!state.id) {
+      return state.text;
+    }
+
+    var $state = $("<span > <span  style='color:black'></span></span>");
+
+    // Use .text() instead of HTML string concatenation to avoid script injection issues
+    $state.find("span").text(state.text);
+
+    return $state;
+  }
+
+  $(".postIdiomas").select2({
+    placeholder: "Selecione Idiomas",
+    templateSelection: formatState,
   });
 
   $(".postDominio").select2({
@@ -49,25 +75,28 @@ $(document).ready(function () {
     },
   });
 
+  // $(".postTema").select2({
+  //   placeholder: "Selecione a Categoria",
+  //   minimumInputLength: 3,
+  //   ajax: {
+  //     url: "/temas/temas-cadastrado",
+  //     dataType: "json",
+  //     delay: 250,
+  //     data: function (data) {
+  //       return {
+  //         searchTerm: data.term, // search term
+  //       };
+  //     },
+  //     processResults: function (response) {
+  //       return {
+  //         results: response,
+  //       };
+  //     },
+  //     cache: true,
+  //   },
+  // });
   $(".postTema").select2({
     placeholder: "Selecione a Categoria",
-    minimumInputLength: 3,
-    ajax: {
-      url: "/temas/temas-cadastrado",
-      dataType: "json",
-      delay: 250,
-      data: function (data) {
-        return {
-          searchTerm: data.term, // search term
-        };
-      },
-      processResults: function (response) {
-        return {
-          results: response,
-        };
-      },
-      cache: true,
-    },
   });
 
   $("#salvar_url").click(function () {

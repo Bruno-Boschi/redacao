@@ -52,7 +52,8 @@
                                 <div class="col-md-6">
                                     <label>Idioma:</label>
 
-                                    <input required class="form-control" id="idioma" name="idioma"
+                                    <input required class="form-control" {{ isset($readOnly) ? $readOnly : '' }}
+                                        id="idioma" name="idioma"
                                         value="{{ isset($idiomaSelecionado) ? $idiomaSelecionado : (isset($materia->idioma) ? $materia->idioma : '') }}">
 
                                 </div>
@@ -81,7 +82,7 @@
                                 <div class="col-md-12">
                                     <label>Imagem Principal:</label>
                                     <input type="file" class="form-control" data-name="imagem" name="imagem_principal"
-                                        id="imagem_principal" > <!-- required tirado pelo nomeline 01/11/22 -->
+                                        id="imagem_principal"> <!-- required tirado pelo nomeline 01/11/22 -->
 
                                     <input type="hidden" id="imagem" name="imagem" class="form-control"
                                         value="{{ isset($materia->imagem_principal) }}">

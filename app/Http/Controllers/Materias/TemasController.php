@@ -100,6 +100,8 @@ class TemasController extends Controller
     public function getCreateEdit($id = 0)
     {
         $tema = Temas::find($id);
+
+
         return view('temas/create-edit', compact('tema'));
     }
 
@@ -153,15 +155,19 @@ class TemasController extends Controller
 
     public function getCreateEditRedator($id = 0)
     {
-        // $temas = Temas::orderBy('descricao', 'ASC')->get();
+        $temas = Temas::orderBy('descricao', 'ASC')->get();
 
 
         $temaReferencias = ReferenciasTemas::where('tema_id', '=', $id)->get();
 
         $redatorAleatorio = RedatorAleatorio::find($id);
 
+        $redatores_clts = User::where('tipo_usuario', 'R')->where('tipo_redator', 'CLT')->where('ativo', '1')->get();
+        $redatores_pjs = User::where('tipo_usuario', 'R')->where('tipo_redator', 'PJ')->where('ativo', '1')->get();
+
+
         // $referencias = ReferenciasMaterias::orderBy('titulo', 'ASC')->get();
-        return view('temas/create-edit-redator', compact('temaReferencias', 'redatorAleatorio'));
+        return view('temas/create-edit-redator', compact('temaReferencias', 'redatorAleatorio', 'redatores_clts', 'redatores_pjs', 'temas'));
     }
 
     private function dadosRedatorAleatorio($request)
@@ -202,10 +208,12 @@ class TemasController extends Controller
         foreach ($records as $record) {
             $status = RedatorAleatorio::STATUS_ASSUNTO[$record->status];
             $data_arr[] = array(
+                "id" => $record->id,
                 "assunto" => $record->assunto,
                 "redator" => $record->name,
                 "descricao" => $record->descricao,
                 "idioma" => $record->idioma,
+                "created_at" => $record->created_at->format('d/m/Y'),
                 "status" => $status,
                 "options" => '<div class="m-icon"><a href="/temas/excluir-redator/' . $record->id . '" title="Excluir"><i class="me-2 mdi mdi-delete"></i></a></div>'
             );
@@ -293,51 +301,64 @@ class TemasController extends Controller
     public function postSalvarRedatorAleatorio()
     {
         $request = $this->request->all();
-        
-        // $redatorSelecionado = (!isset($request['redator'])) ? $this->proximoUsuarioCadastrarTema(0) :
-        //     $request['redator'];
+        $idioma_array = $request['idioma'];
+        // $idioma_string = implode(", ", $idioma_array);
         $redatorSelecionado = ($request['redator']) ? $request['redator'] : 0;
-
         if (isset($request['preco_materia'])) {
             $numero = str_replace('.', '', $request['preco_materia']);
             $numero = str_replace(',', '.', $numero);
+            (int)$numero = (int)$numero / (count($idioma_array));
         } else {
             $numero = 0;
         }
 
-        $assunto = new RedatorAleatorio;
-        $assunto->assunto = $request['assunto'];
-        $assunto->idioma = $request['idioma'];
-        $assunto->qtd_palavras = $request['qtd_palavras'];
-        $assunto->preco_materia = $numero;
-        $assunto->descricao = $request['descricao_assunto'];
-        $assunto->usuario_id = $redatorSelecionado;
-        $assunto->status = 0;
-        $assunto->usuario_cadastro_id = Auth::user()->id;
-        $assunto->tema_id = $request['tema'];
-        $assunto->save();
+        foreach ($idioma_array as $idioma) {
 
 
-        if (isset($request['titulo'])) {
-            for ($i = 0; $i < count($request['titulo']); $i++) {
-                $referencia = new ReferenciasTemas;
-                $referencia->descricao = $request['descricao_referencia'][$i];
-                $referencia->titulo = $request['titulo'][$i];
-                $referencia->tema_id = $assunto->id;
-                // $referencia->materia_id = ($request['materia'][$i] == 'null') ? 0 : $request['materia'][$i];
-                $referencia->materia_id = 0;
-                $referencia->save();
+
+            $assunto = new RedatorAleatorio;
+            $assunto->assunto = $request['assunto'] . " - ( Em " . $idioma . " )";
+            $assunto->idioma = $idioma;
+            $assunto->qtd_palavras = $request['qtd_palavras'];
+            $assunto->preco_materia = round($numero);
+            $assunto->descricao = $request['descricao_assunto'];
+            $assunto->usuario_id = $redatorSelecionado;
+            $assunto->status = 0;
+            $assunto->usuario_cadastro_id = Auth::user()->id;
+            $assunto->tema_id = $request['tema'];
+            $assunto->save();
+
+
+            if (isset($request['titulo'])) {
+                for ($i = 0; $i < count($request['titulo']); $i++) {
+                    $referencia = new ReferenciasTemas;
+                    $referencia->descricao = $request['descricao_referencia'][$i];
+                    $referencia->titulo = $request['titulo'][$i];
+                    $referencia->tema_id = $assunto->id;
+                    // $referencia->materia_id = ($request['materia'][$i] == 'null') ? 0 : $request['materia'][$i];
+                    $referencia->materia_id = 0;
+                    $referencia->save();
+                }
             }
         }
 
-        if ($redatorSelecionado != 0) {
-            $user = User::where('tipo_usuario', 'R')
-                ->where('id', $redatorSelecionado)
-                ->where('ativo', 1)
-                ->first();
 
-            Mail::send(new \App\Mail\redatorEspecifico($user));
-        }
+
+
+
+        // $redatorSelecionado = (!isset($request['redator'])) ? $this->proximoUsuarioCadastrarTema(0) :
+        //     $request['redator'];
+
+
+        // regra email com redator
+        // if ($redatorSelecionado != 0) {
+        //     $user = User::where('tipo_usuario', 'R')
+        //         ->where('id', $redatorSelecionado)
+        //         ->where('ativo', 1)
+        //         ->first();
+
+        //     Mail::send(new \App\Mail\redatorEspecifico($user));
+        // }
 
         return redirect('temas/redator-aleatorio')->with('mensagem', 'Solicitação cadastrada com sucesso.');
     }
@@ -480,5 +501,12 @@ class TemasController extends Controller
         }
 
         return $usuario->id;
+    }
+
+    public function getVerificar($id)
+    {
+        $redator = User::find($id);
+
+        return $redator->tipo_redator;
     }
 }

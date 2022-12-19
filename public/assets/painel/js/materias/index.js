@@ -11,6 +11,7 @@ $(document).ready(function () {
       url: "/materias",
     },
     columns: [
+      { data: "id" },
       {
         data: "imagem_principal",
         name: "imagem",
@@ -22,6 +23,7 @@ $(document).ready(function () {
       { data: "url" },
       { data: "tema" },
       { data: "idioma" },
+      { data: "created_at" },
       { data: "status" },
       {
         data: "options",

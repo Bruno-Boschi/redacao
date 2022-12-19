@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
     {
 
         $schedule->command('refresh_materias')
-            ->cron('0 */6 * * *');
+            ->dailyAt('08:00');
         // ->everyMinute();
     }
 
