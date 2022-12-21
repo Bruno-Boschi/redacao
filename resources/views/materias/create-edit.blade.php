@@ -84,15 +84,19 @@
                                     <input type="file" class="form-control" data-name="imagem" name="imagem_principal"
                                         id="imagem_principal"> <!-- required tirado pelo nomeline 01/11/22 -->
 
-                                    <input type="hidden" id="imagem" name="imagem" class="form-control"
-                                        value="{{ isset($materia->imagem_principal) }}">
-
-                                    <div id="imagem_recebe">
+                                    <div id="block">
+                                        <input type="hidden" id="imagem" name="imagem" class="form-control"
+                                            value="{{ isset($materia->imagem_principal) ? $materia->imagem_principal : null }}">
                                         @if (isset($materia->imagem_principal))
-                                            <img id="icone_img" style="width:30%;"
-                                                src="/assets/materias/imagem_materias/{{ $materia->imagem_principal }}">
+                                            <button class="btn btn-danger mt-2" onclick="limpar()"> X
+                                            </button>
                                         @endif
-
+                                        <div id="imagem_recebe">
+                                            @if (isset($materia->imagem_principal))
+                                                <img id="icone_img" style="width:30%;"
+                                                    src="/assets/materias/imagem_materias/{{ $materia->imagem_principal }}">
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -208,5 +212,10 @@
             window.onbeforeunload = null;
             e.stopImmediatePropagation();
         });
+
+        function limpar() {
+            var node = document.getElementById("block");
+            node.parentNode.removeChild(node);
+        }
     </script>
 @stop

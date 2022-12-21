@@ -212,7 +212,7 @@ class MateriasController extends Controller
                 $materia->idioma = $request['idioma'];
                 $materia->tema_id = $request['tema_id'];
                 $materia->status = 0;
-                $materia->imagem_principal = isset($request['imagem']) ? $request['imagem'] : '';
+                $materia->imagem_principal = isset($request['imagem']) ? $request['imagem'] : null;
                 $materia->save();
                 $mensagem = 'Matéria editada com sucesso.';
 
