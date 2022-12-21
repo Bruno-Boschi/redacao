@@ -61,6 +61,7 @@ class RefreshMaterias extends Command
 
         $users = User::where('tipo_usuario', 'R')
             ->where('ativo', '!=', 0)
+            ->where('tipo_redator', 'CLT')
             ->get();
 
         if ($solicitacoes) {
