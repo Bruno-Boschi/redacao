@@ -119,6 +119,8 @@ use App\Models\Materias\Materias;
                                     <label>Categoria:</label>
                                     <select required class="form-control  postTema" onchange="ocultar()" id="tema_id"
                                         name="tema_id">
+                                        {{-- <option value="0"> Geral
+                                        </option> --}}
                                         @foreach ($temas as $tema)
                                             <option value="{{ $tema->id }}"
                                                 {{ $temaSelecionado == $tema->id ? 'selected' : '' }}>

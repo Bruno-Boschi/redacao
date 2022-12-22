@@ -16,7 +16,7 @@ $(document).ready(function () {
       CKEDITOR.instances["descricao"].setData("");
     }
   });
-  
+
   $(".retorno_reprovacao2").hide();
   $("#status_id").on("change", function () {
     if ($(this).val() == "3") {
@@ -24,10 +24,10 @@ $(document).ready(function () {
       document.getElementById("dominio_id").setAttribute("required");
     } else if ($(this).val() == "2") {
       document.getElementById("dominio_id").removeAttribute("required");
-       $(".retorno_reprovacao2").hide();
+      $(".retorno_reprovacao2").hide();
     }
   });
-  
+
   $(".postTema").select2({
     placeholder: "Selecione a Categoria",
     minimumInputLength: 3,
@@ -47,5 +47,9 @@ $(document).ready(function () {
       },
       cache: true,
     },
+  });
+
+  $(".postTema").select2({
+    placeholder: "Selecione a Categoria",
   });
 });
