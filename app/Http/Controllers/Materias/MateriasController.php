@@ -126,6 +126,8 @@ class MateriasController extends Controller
                 ->skip($start)
                 ->take($rowperpage)
                 ->get();
+
+            $htmlRevisao = true;
         } else {
             // Total records
             $totalRecords = Materias::where('status', 3)
@@ -171,7 +173,7 @@ class MateriasController extends Controller
                 "idioma" => $record->idioma,
                 "created_at" => $record->created_at->format('d/m/Y'),
                 "status" => $status,
-                "options" => '<div class="m-icon"><a href="/materias/visualizar-materia/' . $record->id . '" title="Visualizar"><i class="me-2 mdi mdi-pencil-box-outline"></i></a></div>'
+                "options" => isset($htmlRevisao) ? '<div class="m-icon"><a href="/materias/visualizar-materia/' . $record->id . '" title="Visualizar"><i class="me-2 mdi mdi-pencil-box-outline"></i></a></div><div class="m-icon"><a href="/materias/create-edit/' . $record->id . '" title="Editar"><i class="me-2 mdi mdi-grease-pencil"></i></a></div> ' : '<div class="m-icon"><a href="/materias/visualizar-materia/' . $record->id . '" title="Visualizar"><i class="me-2 mdi mdi-pencil-box-outline"></i></a></div>'
             );
         }
 
@@ -266,8 +268,12 @@ class MateriasController extends Controller
 
                 Mail::send(new \App\Mail\solicitanteMaterias($solicitante));
             }
-
-            return redirect('materias/minhas-materias')->with('mensagem', $mensagem);
+            if (Auth::user()->tipo_usuario == 'R') {
+                return redirect('materias/minhas-materias')->with('mensagem', $mensagem);
+            }
+            if (Auth::user()->tipo_usuario == 'A') {
+                return redirect('/materias/materias-revisar')->with('mensagem', $mensagem);
+            }
         }
 
         return view('materias/minhas-materias');
