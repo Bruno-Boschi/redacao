@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\SolicitacaoController;
+use App\Http\Controllers\Materias\TemasController;
 use Illuminate\Http\Request;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +19,6 @@ use Illuminate\Http\Request;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+// Route::group(['prefix' => '/', 'middleware' => []], function () {
+// });
+Route::post('/solicitacao', [SolicitacaoController::class, 'solicitacaoIntegra']);
