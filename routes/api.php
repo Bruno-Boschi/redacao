@@ -21,4 +21,4 @@ use Illuminate\Http\Request;
 // });
 // Route::group(['prefix' => '/', 'middleware' => []], function () {
 // });
-Route::post('/solicitacao', [SolicitacaoController::class, 'solicitacaoIntegra']);
+Route::post('/api/solicitacao', [SolicitacaoController::class, 'solicitacaoIntegra']);
