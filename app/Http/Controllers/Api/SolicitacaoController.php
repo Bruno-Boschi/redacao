@@ -17,10 +17,19 @@ class SolicitacaoController extends Controller
     public function solicitacaoIntegra(Request $request)
     {
         // dd($request);
+        // return response()->json([
+        //   $request->all()
+        // ]);
 
         // $dominios = DB::table('dominios')->get();
         $dominio = DB::table('dominios')->where('dominio', $request->url_http)->first();
         $new_domain = new Dominios();
+
+        // return response()->json([
+        //   $dominio
+        // ]);
+
+        // caso nao exista o dominio ele e registrado e feita a importaçao das suas categorias
         if ($dominio == null) {
             
             $new_str = trim($request->url_http,"/");
@@ -29,12 +38,12 @@ class SolicitacaoController extends Controller
             $new_domain->usuario_dominio = $request->usuario;
             $new_domain->senha_dominio = $request->senha;
             $new_domain->save();
+
+            ImportadorDadosWordPress::carregaTemasWordPress($new_domain->dominio, $new_domain->id);
+            echo json_encode(array('status' => 1));
         }
 
-        // $request = $this->request->all();
-        // $dominio = Dominios::find($new_domain->id);
-        ImportadorDadosWordPress::carregaTemasWordPress($new_domain->dominio, $new_domain->id);
-        echo json_encode(array('status' => 1));
+
 
 
         // $domain = Dominios::where('dominio')
