@@ -194,7 +194,7 @@ function importandoCategorias(){
 				$('#progressao_dados').css('width', '25%');
 				$('#descricao_dados').html('25%');
 				setTimeout(function() { 
-					importandoPost();
+					importandoPost(); 
 			    }, 2000);
 			}
         }

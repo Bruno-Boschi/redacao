@@ -1,10 +1,10 @@
+/vendor/*
 /node_modules
 /public/hot
 /public/assets/financeiros
 /public/assets/materias/imagem_materias
 /public/storage
 /storage/*.key
-/vendor
 .env
 .env.backup
 .phpunit.result.cache

@@ -132,6 +132,7 @@ class DominiosController extends Controller
         ImportadorDadosWordPress::carregaTemasWordPress($dominio->dominio, $request['idDominio']);
         echo json_encode(array('status' => 1));
         exit;
+        
     }
 
     public function postImportarMaterias()

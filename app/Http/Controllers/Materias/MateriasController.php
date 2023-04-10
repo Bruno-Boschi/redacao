@@ -471,6 +471,13 @@ class MateriasController extends Controller
 
     public function getSalvarRevisao(Request $request)
     {
+        // dd($request);
+        $dominio = Dominios::where('id',$request['dominio_id'])->first();
+        if ($dominio->usuario_dominio == null || $dominio->senha_dominio == null) {
+            return redirect('/dominios')->with('mensagem','Atualiza o usuario e senha do dominio');
+            // dd("aqui");
+        }
+        // dd($dominio);
         $limit = ini_get('memory_limit');
         ini_set('memory_limit', -1);
         ini_set('max_execution_time', 300);
@@ -517,7 +524,9 @@ class MateriasController extends Controller
             );
             $materia->id_wordpress = $idMateria;
             $mensagem = 'Matéria aprovada e publicada.';
-            Mail::send(new \App\Mail\actMateria($materia));
+
+            // estou comentando mail para teste na minha maquina
+            // Mail::send(new \App\Mail\actMateria($materia));
         }
 
         CentralNotificacao::salvarNotificaoUsuario($materia->usuario_id, $mensagem, CentralNotificacoes::MODULO_MATERIAS);
